@@ -7,6 +7,8 @@ import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
 import { GlobalStyles } from './styles/globalStyles';
 import { darkTheme, lightTheme } from './styles/theme';
+import Loading from './components/Loading/Loading';
+import favicon from './app/source/favicon.ico';
 
 const App = () => {
   const { theme } = useSelector((state) => state.ui);
@@ -15,19 +17,23 @@ const App = () => {
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <Helmet>
-        <title>React Redux Boiler</title>
+        <title>서인이의 얼렁뚱땅 마켓</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" href={favicon} />{' '}
       </Helmet>
       <>
         <Layout>
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/loading">
+              <Loading />
             </Route>
           </Switch>
         </Layout>

@@ -65,81 +65,60 @@ Nav.defaultProps = {
           link: '/faq',
           branches: null,
         },
-        {
-          label: 'Legal',
-          link: null,
-          branches: [
-            {
-              label: 'Terms of Service',
-              link: '/terms-of-service',
-              branches: null,
-            },
-            {
-              label: 'Privacy Policy',
-              link: '/privacy-policy',
-              branches: null,
-            },
-            {
-              label: 'Return Policy',
-              link: '/return-policy',
-              branches: null,
-            },
-          ],
-        },
       ],
     },
     {
-      label: 'Services',
+      label: 'Product',
       link: null,
       tree: [
         {
-          label: 'Financial',
+          label: '여성의류',
           link: null,
           branches: [
             {
-              label: 'Tools',
+              label: '상의',
               link: null,
               branches: [
                 {
-                  label: 'Analytics',
+                  label: '블라우스',
                   link: '/services/analytics',
                   branches: null,
                 },
                 {
-                  label: 'Inventory',
+                  label: '티셔츠',
                   link: '/services/inventory',
                   branches: null,
                 },
                 {
-                  label: 'POS',
+                  label: '니트',
                   link: '/services/pos',
                   branches: null,
                 },
               ],
             },
             {
-              label: 'Software',
+              label: '하의',
               link: '/services/software',
               branches: null,
             },
           ],
         },
         {
-          label: 'Agro',
+          label: '남성의류',
           link: '/agro',
           branches: null,
         },
         {
-          label: 'Pricing',
+          label: '전자제품',
           link: null,
           branches: [
             {
-              label: 'Enterprise',
+              label: 'Mac',
               link: '/services/enterprise',
               branches: null,
             },
             {
-              label: 'Small Business',
+              label: 'Samsung',
               link: '/services/small-business',
               branches: null,
             },
