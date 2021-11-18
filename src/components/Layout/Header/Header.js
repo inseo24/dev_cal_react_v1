@@ -53,7 +53,7 @@ const Header = () => {
             <Sbutton onClick={toggleThemeHandler}>
               <Switch />
             </Sbutton>
-            <SCTAButton>Sign In</SCTAButton>
+            <SCTAButton to="/login">Sign In</SCTAButton>
             <SMenuToggleButton onClick={menuToggleHandler}>
               {!menuOpen ? <SMenuIcon /> : <SCloseIcon />}
             </SMenuToggleButton>

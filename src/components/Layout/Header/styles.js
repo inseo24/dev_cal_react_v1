@@ -101,8 +101,9 @@ export const SLogo = styled(FaReact)`
 // nav
 
 // Right
-export const SCTAButton = styled.button`
-  ${btnReset}
+export const SCTAButton = styled(Link)`
+  text-decoration: none;
+  color: primary;
   background: ${({ theme }) => theme.primary};
   padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
   border-radius: ${v.borderRadius};
