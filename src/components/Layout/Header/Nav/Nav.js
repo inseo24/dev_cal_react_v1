@@ -72,44 +72,44 @@ Nav.defaultProps = {
       link: null,
       tree: [
         {
-          label: '여성의류',
+          label: '메뉴1',
           link: null,
           branches: [
             {
-              label: '상의',
+              label: '메뉴2',
               link: null,
               branches: [
                 {
-                  label: '블라우스',
+                  label: '메뉴3',
                   link: '/services/analytics',
                   branches: null,
                 },
                 {
-                  label: '티셔츠',
+                  label: '메뉴4',
                   link: '/services/inventory',
                   branches: null,
                 },
                 {
-                  label: '니트',
+                  label: '메뉴5',
                   link: '/services/pos',
                   branches: null,
                 },
               ],
             },
             {
-              label: '하의',
+              label: '메뉴6',
               link: '/services/software',
               branches: null,
             },
           ],
         },
         {
-          label: '남성의류',
+          label: '메슈7',
           link: '/agro',
           branches: null,
         },
         {
-          label: '전자제품',
+          label: '메뉴',
           link: null,
           branches: [
             {

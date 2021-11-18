@@ -19,10 +19,12 @@ export const SButton = styled.button`
 `;
 
 export const SInput = styled.input`
-  font-size: 18px;
-  padding: 10px;
-  background: ${({ theme }) => theme.secondary};
-  border: none;
-  color: primary;
-  border-radius: 3px;
+  background-color: primary;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 10px 0 20px 0;
+  padding: 20px;
+  display: block;
+  width: 100%;
 `;

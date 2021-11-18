@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { v, b } from '../../../styles/variables';
 
-import { FaReact } from 'react-icons/fa';
+import { AiOutlineCalendar } from 'react-icons/ai';
 import { HiMenuAlt3 } from 'react-icons/hi';
 import { IoMdClose } from 'react-icons/io';
 
@@ -80,7 +80,7 @@ export const SLogoLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 `;
-export const SLogo = styled(FaReact)`
+export const SLogo = styled(AiOutlineCalendar)`
   color: ${({ theme }) => theme.primary};
   display: block;
   width: 100%;
@@ -107,10 +107,6 @@ export const SCTAButton = styled(Link)`
   background: ${({ theme }) => theme.primary};
   padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
   border-radius: ${v.borderRadius};
-  display: none;
-  @media ${b.md} {
-    display: initial;
-  }
 `;
 export const SMenuToggleButton = styled.button`
   ${btnReset}

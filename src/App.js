@@ -9,16 +9,17 @@ import { GlobalStyles } from './styles/globalStyles';
 import { darkTheme, lightTheme } from './styles/theme';
 import Loading from './components/Loading/Loading';
 import favicon from './app/source/favicon.ico';
-import LoginPage from './components/Login/LoginPage';
+import Login from './pages/Login';
 
 const App = () => {
   const { theme } = useSelector((state) => state.ui);
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
+
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyles />
       <Helmet>
-        <title>서인이의 얼렁뚱땅 마켓</title>
+        <title>Developer's Calendar</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -37,7 +38,7 @@ const App = () => {
               <Loading />
             </Route>
             <Route exact path="/login">
-              <LoginPage />
+              <Login />
             </Route>
           </Switch>
         </Layout>

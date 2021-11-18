@@ -50,10 +50,10 @@ const Header = () => {
             <Nav />
           </SCenter>
           <SRight>
+            <SCTAButton to="/login">Login</SCTAButton>
             <Sbutton onClick={toggleThemeHandler}>
               <Switch />
             </Sbutton>
-            <SCTAButton to="/login">Sign In</SCTAButton>
             <SMenuToggleButton onClick={menuToggleHandler}>
               {!menuOpen ? <SMenuIcon /> : <SCloseIcon />}
             </SMenuToggleButton>
