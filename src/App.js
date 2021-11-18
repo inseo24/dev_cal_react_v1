@@ -10,6 +10,7 @@ import { darkTheme, lightTheme } from './styles/theme';
 import Loading from './components/Loading/Loading';
 import favicon from './app/source/favicon.ico';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 const App = () => {
   const { theme } = useSelector((state) => state.ui);
@@ -39,6 +40,9 @@ const App = () => {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
             </Route>
           </Switch>
         </Layout>
