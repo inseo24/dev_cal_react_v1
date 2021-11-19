@@ -101,6 +101,14 @@ export const SLogo = styled(AiOutlineCalendar)`
 // nav
 
 // Right
+export const SLinkButton = styled(Link)`
+  text-decoration: none;
+  color: primary;
+  background: ${({ theme }) => theme.primary};
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
+  border-radius: ${v.borderRadius};
+`;
+
 export const SCTAButton = styled(Link)`
   text-decoration: none;
   color: primary;
@@ -108,6 +116,7 @@ export const SCTAButton = styled(Link)`
   padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
   border-radius: ${v.borderRadius};
 `;
+
 export const SMenuToggleButton = styled.button`
   ${btnReset}
   width: 32px;

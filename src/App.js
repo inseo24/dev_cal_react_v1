@@ -9,7 +9,7 @@ import { GlobalStyles } from './styles/globalStyles';
 import { darkTheme, lightTheme } from './styles/theme';
 import Loading from './components/Loading/Loading';
 import favicon from './app/source/favicon.ico';
-import Login from './pages/Login';
+import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
 const App = () => {
@@ -39,7 +39,7 @@ const App = () => {
               <Loading />
             </Route>
             <Route exact path="/login">
-              <Login />
+              <SignIn />
             </Route>
             <Route exact path="/signup">
               <SignUp />

@@ -1,28 +1,25 @@
 import { Container, Grid, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { SButton, SInput } from './styles';
-import { signUpAsync } from '../../app/slices/singUpSlice';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useHistory } from 'react-router';
+import { signInAsync } from '../../app/slices/signInSlice';
 
-const SignUpPage = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      signUpAsync({
-        username: username,
+      signInAsync({
         email: email,
         password: password,
       }),
     );
   };
-
-  // const history = useHistory();
 
   return (
     <Container component="main" maxWidth="xs" style={{ marginTop: '13%' }}>
@@ -32,7 +29,7 @@ const SignUpPage = () => {
           variant="h5"
           style={{ marginBottom: '4%', fontWeight: '600' }}
         >
-          회원가입
+          로그인
         </Typography>
       </Grid>
       <form onSubmit={onSubmit}>
@@ -43,23 +40,10 @@ const SignUpPage = () => {
               required
               fullWidth
               color="secondary"
-              id="username"
-              placeholder="이름"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={{ background: 'white' }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <SInput
-              variant="outlined"
-              required
-              fullWidth
-              color="secondary"
               id="email"
               placeholder="이메일"
               name="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{ background: 'white' }}
@@ -83,11 +67,14 @@ const SignUpPage = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <SButton type="submit">가입</SButton>
+          <SButton type="submit">로그인</SButton>
+          <Link to="/signup">
+            <SButton>회원가입</SButton>
+          </Link>
         </Grid>
       </form>
     </Container>
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

@@ -6,7 +6,6 @@ import Switch from './Switch';
 import {
   SCenter,
   SCloseIcon,
-  SCTAButton,
   SHeader,
   SHeaderFixed,
   SHeaderHeight,
@@ -18,8 +17,10 @@ import {
   SMenuToggleButton,
   SRight,
   Sbutton,
+  SLinkButton,
 } from './styles';
 import Nav from './Nav/Nav';
+import { Logout } from '../../Logout/Logout';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,13 @@ const Header = () => {
             <Nav />
           </SCenter>
           <SRight>
-            <SCTAButton to="/login">Login</SCTAButton>
+            {localStorage.getItem('ACCESS_TOKEN') ? (
+              <SLinkButton onClick={Logout} await to="/login">
+                Logout
+              </SLinkButton>
+            ) : (
+              <SLinkButton to="/login">Login</SLinkButton>
+            )}
             <Sbutton onClick={toggleThemeHandler}>
               <Switch />
             </Sbutton>
