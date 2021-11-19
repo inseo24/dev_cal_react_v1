@@ -68,10 +68,17 @@ const LoginPage = () => {
         </Grid>
         <Grid item xs={12}>
           <SButton type="submit">로그인</SButton>
-          <Link to="/signup">
-            <SButton>회원가입</SButton>
-          </Link>
         </Grid>
+        <Link
+          to="/signup"
+          style={{
+            fontSize: '15px',
+            textDecoration: 'none',
+            textAlign: 'right',
+          }}
+        >
+          <Grid item>계정이 없습니까? 여기서 가입 하세요.</Grid>
+        </Link>
       </form>
     </Container>
   );

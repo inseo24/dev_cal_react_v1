@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SButton, SInput } from './styles';
 import { signUpAsync } from '../../app/slices/singUpSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router';
 
 const SignUpPage = () => {
@@ -85,6 +86,16 @@ const SignUpPage = () => {
         <Grid item xs={12}>
           <SButton type="submit">가입</SButton>
         </Grid>
+        <Link
+          to="/login"
+          style={{
+            fontSize: '15px',
+            textDecoration: 'none',
+            textAlign: 'right',
+          }}
+        >
+          <Grid item>이미 계정이 있습니까? 로그인 하세요.</Grid>
+        </Link>
       </form>
     </Container>
   );

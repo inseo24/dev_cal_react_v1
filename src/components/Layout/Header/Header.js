@@ -52,9 +52,7 @@ const Header = () => {
           </SCenter>
           <SRight>
             {localStorage.getItem('ACCESS_TOKEN') ? (
-              <SLinkButton onClick={Logout} await to="/login">
-                Logout
-              </SLinkButton>
+              <SLinkButton onClick={Logout}>Logout</SLinkButton>
             ) : (
               <SLinkButton to="/login">Login</SLinkButton>
             )}

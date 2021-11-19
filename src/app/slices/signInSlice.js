@@ -23,11 +23,6 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
 
   if (response.ok) {
     const signUp = await response.json();
-    alert('회원가입에 성공하셨습니다.');
-    //  if (response.status === 400) {
-    //    alert('이미 사용중인 이메일입니다. 다시 설정해주세요.');
-    //    window.location.href = '/signIn';
-    //  }
 
     if (signUp.token) {
       localStorage.setItem('ACCESS_TOKEN', signUp.token);
