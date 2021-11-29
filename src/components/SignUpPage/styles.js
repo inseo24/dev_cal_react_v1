@@ -17,6 +17,9 @@ export const SButton = styled.button`
   border: none;
   margin: 20px 60px 20px 0;
   cursor: pointer;
+  :hover {
+    color: white;
+  }
 `;
 
 export const SInput = styled.input`

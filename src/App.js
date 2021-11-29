@@ -11,6 +11,9 @@ import Loading from './components/Loading/Loading';
 import favicon from './app/source/favicon.ico';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import BoardPage from './components/Board/BoardPage';
+import BoardSaveForm from './components/Board/saveForm';
+import BoardDetail from './components/Board/BoardDetail';
 
 const App = () => {
   const { theme } = useSelector((state) => state.ui);
@@ -43,6 +46,15 @@ const App = () => {
             </Route>
             <Route exact path="/signup">
               <SignUp />
+            </Route>
+            <Route exact path="/board">
+              <BoardPage />
+            </Route>
+            <Route exact path="/saveForm">
+              <BoardSaveForm />
+            </Route>
+            <Route exact path="/board/:id">
+              <BoardDetail />
             </Route>
           </Switch>
         </Layout>

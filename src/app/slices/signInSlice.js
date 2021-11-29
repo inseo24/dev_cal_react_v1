@@ -10,16 +10,17 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
     headers.append('Authorization', 'Bearer' + accessToken);
   }
 
-  const response = await fetch('http://localhost:8080/auth/signin', {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({
-      email: payload.email,
-      password: payload.password,
-    }),
-  });
-
-  console.log(response);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_BASE}/auth/signin`,
+    {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        email: payload.email,
+        password: payload.password,
+      }),
+    },
+  );
 
   if (response.ok) {
     const signUp = await response.json();
