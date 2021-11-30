@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 import BoardPage from './components/Board/BoardPage';
 import BoardSaveForm from './components/Board/saveForm';
 import BoardDetail from './components/Board/BoardDetail';
+import MyCalendar from './components/Calendar/MyCalendar';
 
 export default function App() {
   const { theme } = useSelector((state) => state.ui);
@@ -57,6 +58,9 @@ export default function App() {
             </Route>
             <Route exact path="/board/:id">
               <BoardDetail />
+            </Route>
+            <Route exact path="/event">
+              <MyCalendar />
             </Route>
           </Switch>
         </Layout>
