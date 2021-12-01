@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { v } from '../../styles/variables';
 
 export const SContainer = styled.div`
   display: flex;
@@ -19,11 +20,43 @@ export const SButton = styled.button`
   border: 0;
 `;
 
-export const SModal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+export const SSCButton = styled.button`
+  background-color: primary;
+  outline: 0;
+  border: 0;
+  border-radius: ${v.borderRadius};
+  cursor: pointer;
+  text-align: center;
+  color: #666;
+  padding: 5px 5px;
+  font-size: 16px;
+`;
+
+export const SModalMain = styled.section`
+  width: 380px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
+`;
+
+export const SText = styled.p`
+  text-align: center;
+  color: #666;
+  padding: 5px 20px;
+  font-size: 16px;
+`;
+
+export const SDiv = styled.div`
+  text-align: center;
+  color: #666;
+  padding: 5px 20px;
+  font-size: 16px;
+`;
+
+export const SLink = styled.a`
+  text-decoration: none;
 `;

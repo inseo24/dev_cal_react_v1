@@ -9,21 +9,29 @@ export const signUpAsync = createAsyncThunk('/auth/signup', async (payload) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: payload.username,
+        name: payload.name,
         email: payload.email,
         password: payload.password,
+        mobileNum: payload.mobileNum,
       }),
     },
   );
 
-  if (response.status === 400) {
-    alert('이미 사용중인 이메일입니다. 다시 설정해주세요.');
-  }
-
   if (response.ok) {
-    const signUp = await response.json();
-    alert('회원가입에 성공하셨습니다.');
-    window.location.href = '/';
-    return { signUp };
+    const signIn = await response.json();
+
+    if (signIn.code === -1) {
+      let error = signIn.data;
+      Object.keys(error).forEach(function (key) {
+        alert(error[key]);
+      });
+    }
+
+    if (signIn.code === 1) {
+      alert('회원가입에 성공했습니다.');
+      window.location.href = '/login';
+    }
+
+    return { signIn };
   }
 });

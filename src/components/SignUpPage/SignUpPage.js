@@ -7,18 +7,26 @@ import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router';
 
 const SignUpPage = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+
   const [email, setEmail] = useState('');
+  const [emailCheck, setEmailCheck] = useState(false);
+  const [checkError, setCheckError] = useState('');
+
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+
+  const [mobileNum, setMobileNum] = useState('');
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
       signUpAsync({
-        username: username,
+        name: name,
         email: email,
         password: password,
+        mobileNum: mobileNum,
       }),
     );
   };
@@ -47,8 +55,8 @@ const SignUpPage = () => {
               id="username"
               placeholder="이름"
               name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               style={{ background: 'white' }}
             />
           </Grid>
@@ -79,6 +87,33 @@ const SignUpPage = () => {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{ background: 'white' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SInput
+              variant="outlined"
+              required
+              fullWidth
+              color="secondary"
+              id="passwordConfirm"
+              placeholder="패스워드 확인"
+              name="passwordConfirm"
+              type="password"
+              style={{ background: 'white' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SInput
+              variant="outlined"
+              required
+              fullWidth
+              color="secondary"
+              id="mobile"
+              placeholder="휴대폰번호"
+              name="mobile"
+              value={mobileNum}
+              onChange={(e) => setMobileNum(e.target.value)}
               style={{ background: 'white' }}
             />
           </Grid>

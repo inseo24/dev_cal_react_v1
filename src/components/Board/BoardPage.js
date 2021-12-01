@@ -1,6 +1,7 @@
 import React from 'react';
 import BoardList from './BoardList';
 import { SLeft, SLinkButton, SRight, STitle } from './styles';
+
 const BoardPage = () => {
   return (
     <>
