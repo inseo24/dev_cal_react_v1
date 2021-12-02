@@ -8,11 +8,22 @@ const DetailPage = () => {
   const [scrapList, setScrapList] = useState([]);
   const history = useHistory();
 
+  let headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+
+  const accessToken = localStorage.getItem('ACCESS_TOKEN');
+  headers.append('Authorization', 'Bearer ' + accessToken);
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE}/`)
+    fetch(`${process.env.REACT_APP_API_BASE}/scrap`, {
+      method: 'GET',
+      headers: headers,
+    })
       .then((res) => res.json())
       .then((res) => {
         setScrapList(res.data);
+
         if (
           localStorage.getItem('user') === null ||
           localStorage.getItem('user') === ''
@@ -22,6 +33,7 @@ const DetailPage = () => {
         }
       });
   }, []);
+  console.log(scrapList);
 
   return (
     <>
@@ -47,7 +59,11 @@ const DetailPage = () => {
           </tr>
         </thead>
 
-        <tbody></tbody>
+        <tbody>
+          {scrapList.map((scrap) => (
+            <ScrapItem key={scrap.scrapId} scrap={scrap} />
+          ))}
+        </tbody>
       </SLeft>
     </>
   );

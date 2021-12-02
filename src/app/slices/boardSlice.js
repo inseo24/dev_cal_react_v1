@@ -22,6 +22,9 @@ export const boardPostAsync = createAsyncThunk('/board', async (payload) => {
   if (response.ok) {
     const board = await response.json();
 
+    alert('등록되었습니다.');
+    window.location.href = '/board';
+
     return { board };
   }
 });

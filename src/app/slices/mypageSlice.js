@@ -37,3 +37,20 @@ export const myPageAsync = createAsyncThunk('/auth/signin', async (payload) => {
     return { signIn };
   }
 });
+
+export const getEventAsync = createAsyncThunk('/scrap', async (payload) => {
+  let headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+
+  const response = await fetch(`${process.env.REACT_APP_API_BASE}/scrap`, {
+    method: 'GET',
+    headers: headers,
+  });
+
+  if (response.ok) {
+    const res = await response.json();
+
+    return { res };
+  }
+});

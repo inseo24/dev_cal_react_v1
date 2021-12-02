@@ -117,9 +117,6 @@ export const STableTitle = styled.td`
   font-size: 16px;
   border-top: 1px solid primary;
   text-align: left;
-  :hover {
-    color: ${({ theme }) => theme.primary};
-  }
 `;
 
 export const STableTime = styled.td`

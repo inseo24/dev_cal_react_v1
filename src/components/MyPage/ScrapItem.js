@@ -1,8 +1,8 @@
 import { React } from 'react';
-import { STableNum, STableTime, STableTitle } from './styles';
+import { SButton, STableNum, STableTime, STableTitle } from './styles';
 
 const ScrapItem = (props) => {
-  const { boardId, title, createdTime } = props.board;
+  const { scrapId, event } = props.scrap;
   const options = {
     weekday: 'long',
     year: 'numeric',
@@ -10,13 +10,44 @@ const ScrapItem = (props) => {
     day: 'numeric',
   };
 
-  const cdate = new Date(createdTime).toLocaleDateString(undefined, options);
+  console.log(props.scrap);
+
+  const cdate = new Date(event.start).toLocaleDateString(undefined, options);
+  const unScrap = async () => {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+    headers.append('Authorization', 'Bearer ' + accessToken);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE}/scrap/` + event.eventId,
+      {
+        method: 'DELETE',
+        headers: headers,
+      },
+    );
+
+    if (response.ok) {
+      const scrap = await response.json();
+      alert('삭제되었습니다.');
+      window.location.href = '/mypage';
+
+      return { scrap };
+    }
+  };
+
   return (
     <>
       <tr>
-        <STableNum>{boardId}</STableNum>
-        <STableTitle>{title}</STableTitle>
+        <STableNum>{scrapId}</STableNum>
+        <STableTitle>{event.title}</STableTitle>
         <STableTime>{cdate}</STableTime>
+        <STableTitle>{event.host}</STableTitle>
+        <STableTitle>
+          <SButton onClick={unScrap}>삭제</SButton>
+        </STableTitle>
       </tr>
     </>
   );
