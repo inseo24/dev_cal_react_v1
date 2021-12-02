@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { SSCButton } from '../Calendar/styles';
 import ScrapItem from './ScrapItem';
 import { SLeft, SText, SLinkButton, STitle, STableHead } from './styles';
 
 const DetailPage = () => {
   const [scrapList, setScrapList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE}/`)
       .then((res) => res.json())
       .then((res) => {
         setScrapList(res.data);
+        if (
+          localStorage.getItem('user') === null ||
+          localStorage.getItem('user') === ''
+        ) {
+          alert('로그인을 해주세요.');
+          history.push('/login');
+        }
       });
   }, []);
 
