@@ -1,20 +1,19 @@
 import { Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { SButton, SInput } from './styles';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { signInAsync } from '../../app/slices/signInSlice';
+import { myPageAsync } from '../../app/slices/mypageSlice';
 
 const MyPage = () => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(localStorage.getItem('user'));
   const [password, setPassword] = useState();
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      signInAsync({
+      myPageAsync({
         email: email,
         password: password,
       }),

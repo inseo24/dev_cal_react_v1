@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
+export const myPageAsync = createAsyncThunk('/auth/signin', async (payload) => {
   let headers = new Headers({
     'Content-Type': 'application/json',
   });
@@ -16,6 +16,14 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
       }),
     },
   );
+  if (response.status === 400) {
+    alert('올바르지 않은 비밀번호입니다.');
+  }
+
+  if (response.status === 500) {
+    alert('로그인을 먼저 해주세요.');
+    window.location.href = '/login';
+  }
 
   if (response.ok) {
     const signIn = await response.json();
@@ -23,7 +31,7 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
     if (signIn.token) {
       localStorage.setItem('ACCESS_TOKEN', signIn.token);
       localStorage.setItem('user', signIn.email);
-      window.location.href = '/';
+      window.location.href = '/mypage/update';
     }
 
     return { signIn };

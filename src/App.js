@@ -14,6 +14,9 @@ import BoardPage from './components/Board/BoardPage';
 import BoardSaveForm from './components/Board/saveForm';
 import BoardDetail from './components/Board/BoardDetail';
 import MyCalendar from './components/Calendar/MyCalendar';
+import MyPage from './components/MyPage/MyPage';
+import DetailPage from './components/MyPage/DetailPage';
+import UpdateForm from './components/MyPage/UpdateForm';
 
 export default function App() {
   const { theme } = useSelector((state) => state.ui);
@@ -61,6 +64,15 @@ export default function App() {
             </Route>
             <Route exact path="/event">
               <MyCalendar />
+            </Route>
+            <Route exact path="/mypage/auth">
+              <MyPage />
+            </Route>
+            <Route exact path="/mypage">
+              <DetailPage />
+            </Route>
+            <Route exact path="/mypage/update">
+              <UpdateForm />
             </Route>
           </Switch>
         </Layout>
