@@ -1,47 +1,61 @@
-import {
-  makeStyles,
-  TableHead,
-  TableRow,
-  TableContainer,
-} from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Container, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { SButton, SInput } from './styles';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { signInAsync } from '../../app/slices/signInSlice';
 
 const MyPage = () => {
-  const useStyles = makeStyles({
-    container: {
-      maxHeight: 600,
-    },
-    cell: {
-      fontWeight: 'lighter',
-      fontSize: '12pt',
-    },
-  });
-  const classes = useStyles();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const dispatch = useDispatch();
 
-  const { data } = useSelector((state) => state.MyPage);
-  console.log(data);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      signInAsync({
+        email: email,
+        password: password,
+      }),
+    );
+  };
 
   return (
-    <>
-      <TableContainer className={classes.container}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.cell}>번호</TableCell>
-              <TableCell className={classes.cell}>제목</TableCell>
-              <TableCell className={classes.cell}>닉네임</TableCell>
-              <TableCell className={classes.cell}>작성날짜</TableCell>
-              <TableCell className={classes.cell}>진행상태</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody></TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <Container component="main" maxWidth="xs" style={{ marginTop: '13%' }}>
+      <Grid item xs={12}>
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ marginBottom: '4%', fontWeight: '600' }}
+        >
+          비밀번호 확인
+        </Typography>
+      </Grid>
+      <form onSubmit={onSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <SInput
+              variant="outlined"
+              required
+              fullWidth
+              color="secondary"
+              id="password"
+              placeholder="패스워드"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ background: 'white' }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <SButton type="submit">확인</SButton>
+        </Grid>
+      </form>
+    </Container>
   );
 };
 
