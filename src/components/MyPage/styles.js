@@ -15,7 +15,7 @@ export const SButton = styled.button`
   border-radius: ${v.borderRadius};
   outline: none;
   border: none;
-  margin: 20px 60px 20px 0;
+  margin: 20px 0 20px 0;
   cursor: pointer;
   :hover {
     color: white;
@@ -117,6 +117,7 @@ export const STableTitle = styled.td`
   font-size: 16px;
   border-top: 1px solid primary;
   text-align: left;
+  text-align: center;
 `;
 
 export const STableTime = styled.td`
