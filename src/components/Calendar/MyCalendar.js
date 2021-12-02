@@ -24,6 +24,7 @@ class MyCalendar extends Component {
   showModal = (e) => {
     this.setState({ show: true });
     this.setState({ event: e.event });
+    console.log(e.event);
   };
 
   hideModal = () => {
@@ -37,6 +38,39 @@ class MyCalendar extends Component {
   }
 
   render() {
+    const scrap = async () => {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+      });
+
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      headers.append('Authorization', 'Bearer ' + accessToken);
+      console.log(headers);
+
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE}/scrap/` +
+          this.state.event._def.extendedProps.eventId,
+        {
+          method: 'POST',
+          headers: headers,
+        },
+      );
+      if (response.ok) {
+        const scrap = await response.json();
+        alert('스크랩 되었습니다.');
+        return { scrap };
+      }
+
+      if (response.status === 403) {
+        alert('로그인이 필요합니다.');
+        window.location.href = '/login';
+      }
+
+      if (response.status === 500) {
+        alert('이미 스크랩된 이벤트 입니다.');
+      }
+    };
+
     return (
       <div style={{ cursor: 'pointer' }}>
         <Modal show={this.state.show} handleClose={this.hideModal}>
@@ -68,7 +102,7 @@ class MyCalendar extends Component {
             </SLink>
           </SDiv>
           <SDiv>
-            <SSCButton>스크랩</SSCButton>
+            <SSCButton onClick={scrap}>스크랩</SSCButton>
           </SDiv>
         </Modal>
         <FullCalendar
