@@ -45,7 +45,6 @@ class MyCalendar extends Component {
 
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
       headers.append('Authorization', 'Bearer ' + accessToken);
-      console.log(headers);
 
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE}/scrap/` +

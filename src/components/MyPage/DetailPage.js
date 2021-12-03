@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { SSCButton } from '../Calendar/styles';
 import ScrapItem from './ScrapItem';
 import { SLeft, SText, SLinkButton, STitle, STableHead } from './styles';
 
@@ -33,7 +32,6 @@ const DetailPage = () => {
         }
       });
   }, []);
-  console.log(scrapList);
 
   return (
     <>
