@@ -16,33 +16,34 @@ const BoardSaveForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     dispatch(
       boardPostAsync({
         title: title,
         content: content,
       }),
     );
+    if (img !== null) {
+      const formData = new FormData();
+      formData.append('file', img);
 
-    const formData = new FormData();
-    formData.append('file', img);
-    await formData.append('boardId', boardId);
+      let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
 
-    let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      headers.append('Authorization', 'Bearer ' + accessToken);
+      await formData.append('boardId', boardId);
 
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');
-    headers.append('Authorization', 'Bearer ' + accessToken);
-
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_BASE}/file/image`,
-      formData,
-      {
-        headers: headers,
-      },
-    );
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE}/file/image`,
+        formData,
+        {
+          headers: headers,
+        },
+      );
+    }
   };
 
   const onChange = (e) => {
+    e.preventDefault();
     setImage(e.target.files[0]);
   };
 
@@ -107,7 +108,12 @@ const BoardSaveForm = () => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <input type="file" name="file" onChange={onChange}></input>
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg"
+              name="file"
+              onChange={onChange}
+            ></input>
           </Grid>
           <Grid item xs={12}>
             <SButton type="submit">저장</SButton>

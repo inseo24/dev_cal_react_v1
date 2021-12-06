@@ -17,6 +17,7 @@ import MyCalendar from './components/Calendar/MyCalendar';
 import MyPage from './components/MyPage/MyPage';
 import DetailPage from './components/MyPage/DetailPage';
 import UpdateForm from './components/MyPage/UpdateForm';
+import BoardUpdateForm from './components/Board/updateForm';
 
 export default function App() {
   const { theme } = useSelector((state) => state.ui);
@@ -61,6 +62,9 @@ export default function App() {
             </Route>
             <Route exact path="/board/:id">
               <BoardDetail />
+            </Route>
+            <Route exact path="/updateForm/:id">
+              <BoardUpdateForm />
             </Route>
             <Route exact path="/event">
               <MyCalendar />

@@ -1,25 +1,93 @@
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { boardPostAsync } from '../../app/slices/boardSlice';
+import { boardUpdateAsync } from '../../app/slices/boardSlice';
 import { SButton, SInput } from './styles';
 
 const BoardUpdateForm = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const inputTitleRef = useRef();
+  const inputContentRef = useRef();
+  const [img, setImage] = useState(null);
+
+  const [board, setBoard] = useState({
+    boardId: '',
+    title: '',
+    content: '',
+    createdTime: '',
+  });
+
+  let headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+
+  const accessToken = localStorage.getItem('ACCESS_TOKEN');
+  headers.append('Authorization', 'Bearer ' + accessToken);
+
+  let boardId = window.location.pathname.split('/')[2];
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_BASE}/board/` + boardId, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setBoard(res.data[0]);
+        console.log(res.data[0]);
+        if (
+          localStorage.getItem('user') === null ||
+          localStorage.getItem('user') === ''
+        ) {
+          alert('로그인을 해주세요.');
+        }
+      });
+  }, []);
 
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(
-      boardPostAsync({
-        title: title,
-        content: content,
+      boardUpdateAsync({
+        boardId: boardId,
+        title: inputTitleRef.current.value,
+        content: inputContentRef.current.value,
       }),
     );
+    if (img !== null) {
+      const formData = new FormData();
+      formData.append('file', img);
+
+      let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+      headers.append('Authorization', 'Bearer ' + accessToken);
+      await formData.append('boardId', boardId);
+
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE}/file/image`,
+        formData,
+        {
+          headers: headers,
+        },
+      );
+    }
+  };
+
+  const onChangeValue = (e) => {
+    e.preventDefault();
+    setBoard({
+      ...board,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onChange = (e) => {
+    e.preventDefault();
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -38,11 +106,11 @@ const BoardUpdateForm = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography component="h3" variant="h7">
-                제목
+                수정하기
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <SInput
+              <TextField
                 variant="outlined"
                 required
                 fullWidth
@@ -50,10 +118,11 @@ const BoardUpdateForm = () => {
                 id="title"
                 placeholder="제목을 입력하세요"
                 name="title"
-                value={title}
+                inputRef={inputTitleRef}
+                value={board.title}
                 type="text"
                 maxLength="25"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={onChangeValue}
                 style={{ background: 'white', width: '420px' }}
               />
             </Grid>
@@ -63,24 +132,31 @@ const BoardUpdateForm = () => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <SInput
+              <TextField
                 variant="outlined"
                 required
                 fullWidth
                 color="secondary"
                 id="content"
+                value={board.content}
                 placeholder="내용을 입력하세요."
                 name="content"
                 type="text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                inputRef={inputContentRef}
+                onChange={onChangeValue}
                 style={{
                   background: 'white',
-                  width: '420px',
-                  height: '200px',
                 }}
               />
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg"
+              name="file"
+              onChange={onChange}
+            ></input>
           </Grid>
           <Grid item xs={12}>
             <SButton type="submit">저장</SButton>

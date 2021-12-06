@@ -18,20 +18,20 @@ export const signUpAsync = createAsyncThunk('/auth/signup', async (payload) => {
   );
 
   if (response.ok) {
-    const signIn = await response.json();
+    const signup = await response.json();
 
-    if (signIn.code === -1) {
-      let error = signIn.data;
+    if (signup.code === -1) {
+      let error = signup.data;
       Object.keys(error).forEach(function (key) {
         alert(error[key]);
       });
     }
 
-    if (signIn.code === 1) {
+    if (signup.code === 1) {
       alert('회원가입에 성공했습니다.');
       window.location.href = '/login';
     }
 
-    return { signIn };
+    return { signup };
   }
 });

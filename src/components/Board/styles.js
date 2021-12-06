@@ -107,3 +107,5 @@ export const STableTime = styled.td`
   border-top: 1px solid primary;
   text-align: center;
 `;
+
+export const SComment = styled.p``;
