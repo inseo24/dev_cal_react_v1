@@ -25,9 +25,7 @@ export const signUpAsync = createAsyncThunk('/auth/signup', async (payload) => {
       Object.keys(error).forEach(function (key) {
         alert(error[key]);
       });
-    }
-
-    if (signup.code === 1) {
+    } else {
       alert('회원가입에 성공했습니다.');
       window.location.href = '/login';
     }

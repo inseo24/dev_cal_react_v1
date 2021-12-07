@@ -11,24 +11,52 @@ export const SButton = styled.button`
   text-decoration: none;
   color: primary;
   background: ${({ theme }) => theme.primary};
-  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
-  border-radius: ${v.borderRadius};
-  outline: none;
+  text-transform: uppercase;
   border: none;
-  margin: 20px 60px 20px 0;
+  margin-top: 40px;
+  padding: 13px;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 5px;
+  letter-spacing: 5px;
   cursor: pointer;
   :hover {
     color: white;
+    background: #bf1650;
+  }
+`;
+
+export const SSpan = styled.span`
+  color: ${({ theme }) => theme.primary};
+
+  ::before {
+    display: inline;
+    content: '⚠ ';
   }
 `;
 
 export const SInput = styled.input`
-  background-color: primary;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin: 10px 0 20px 0;
-  padding: 20px;
   display: block;
+  box-sizing: border-box;
   width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+`;
+
+export const SLabel = styled.label`
+  line-height: 2;
+  text-align: left;
+  display: block;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const SForm = styled.form`
+  max-width: 400px;
+  margin: 0 auto;
 `;
