@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { v } from '../../styles/variables';
-
 export const SButton = styled.button`
   text-decoration: none;
   color: primary;

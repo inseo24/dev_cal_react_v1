@@ -7,6 +7,32 @@ export const SPage = styled.div`
   height: calc(100vh - ${v.headerHeight} - ${v.lgSpacing} * 2);
 `;
 
+export const SModalButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 30px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+`;
+
+export const SALink = styled.a`
+  color: ${({ theme }) => theme.primary};
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  padding: 10px 50px;
+  margin-bottom: 10px;
+
+  :hover {
+    color: #bf1650;
+  }
+`;
+
 export const SButton = styled.button`
   text-decoration: none;
   color: primary;
@@ -17,13 +43,29 @@ export const SButton = styled.button`
   border: none;
   margin: 20px 0 20px 0;
   cursor: pointer;
+  text-decoration: none;
+
   :hover {
     color: white;
   }
 `;
 
-export const SText = styled.h3`
+export const SModalTitle = styled.h3`
+  color: black;
+  text-align: center;
+  padding-bottom: 3%;
+  padding-top: 2%;
+`;
+
+export const SModalText = styled.p`
+  color: black;
+  padding-bottom: 3%;
+  padding-top: 2%;
+`;
+
+export const SText = styled.p`
   color: primary;
+  font-weight: 600;
   padding-bottom: 3%;
   padding-top: 2%;
 `;
@@ -118,10 +160,26 @@ export const STableTitle = styled.td`
   border-top: 1px solid primary;
   text-align: left;
   text-align: center;
+
+  cursor: pointer;
+  :hover {
+    color: #bf1650;
+  }
 `;
 
-export const STableTime = styled.td`
+export const STableRow = styled.td`
   font-size: 16px;
   border-top: 1px solid primary;
   text-align: center;
+`;
+
+export const SModalMain = styled.section`
+  width: 380px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+  background: white;
 `;
