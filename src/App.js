@@ -14,10 +14,11 @@ import BoardPage from './components/Board/BoardPage';
 import BoardSaveForm from './components/Board/saveForm';
 import BoardDetail from './components/Board/BoardDetail';
 import MyCalendar from './components/Calendar/MyCalendar';
-import MyPage from './components/MyPage/MyPage';
 import DetailPage from './components/MyPage/DetailPage';
-import UpdateForm from './components/MyPage/UpdateForm';
 import BoardUpdateForm from './components/Board/updateForm';
+import MyInfoUpdatePage from './components/MyPage/MyInfoUpdatePage';
+import MyInfoConfirmPage from './components/MyPage/MyInfoConfirmPage';
+import PrivateRoute from './app/PrivateRoute';
 
 export default function App() {
   const { theme } = useSelector((state) => state.ui);
@@ -57,26 +58,26 @@ export default function App() {
             <Route exact path="/board">
               <BoardPage />
             </Route>
-            <Route exact path="/saveForm">
-              <BoardSaveForm />
-            </Route>
-            <Route exact path="/board/:id">
-              <BoardDetail />
-            </Route>
-            <Route exact path="/updateForm/:id">
-              <BoardUpdateForm />
-            </Route>
+            <PrivateRoute exact path="/saveForm" component={BoardSaveForm} />
+            <PrivateRoute
+              exact
+              path="/updateForm/:id"
+              component={BoardUpdateForm}
+            />
+            <PrivateRoute
+              exact
+              path="/mypage/auth"
+              component={MyInfoConfirmPage}
+            />
+            <PrivateRoute exact path="/mypage" component={DetailPage} />
+            <PrivateRoute
+              exact
+              path="/mypage/update"
+              component={MyInfoUpdatePage}
+            />
+            <PrivateRoute exact path="/board/:id" component={BoardDetail} />
             <Route exact path="/event">
               <MyCalendar />
-            </Route>
-            <Route exact path="/mypage/auth">
-              <MyPage />
-            </Route>
-            <Route exact path="/mypage">
-              <DetailPage />
-            </Route>
-            <Route exact path="/mypage/update">
-              <UpdateForm />
             </Route>
           </Switch>
         </Layout>

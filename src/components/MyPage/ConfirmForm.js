@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { SButton, SForm, SInput, SLabel, SSpan } from './styles';
 import { Typography } from '@mui/material';
-import { updateAsync } from '../../app/slices/updateSlice';
+import { myPageAsync } from '../../app/slices/mypageSlice';
 
-export default function UpdateForm() {
+export default function ConfirmForm() {
   const {
     register,
     handleSubmit,
@@ -16,8 +16,7 @@ export default function UpdateForm() {
 
   const onSubmit = async (data) => {
     await dispacth(
-      updateAsync({
-        email: localStorage.getItem('user'),
+      myPageAsync({
         password: data.password,
       }),
     );
@@ -49,7 +48,7 @@ export default function UpdateForm() {
       />
       {errors.password && <SSpan role="alert">{errors.password.message}</SSpan>}
       <br />
-      <SButton type="submit">Login</SButton>
+      <SButton type="submit">확인</SButton>
     </SForm>
   );
 }
