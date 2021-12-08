@@ -13,12 +13,12 @@ import SignUp from './pages/SignUp';
 import BoardPage from './components/Board/BoardPage';
 import BoardSaveForm from './components/Board/saveForm';
 import BoardDetail from './components/Board/BoardDetail';
-import MyCalendar from './components/Calendar/MyCalendar';
 import DetailPage from './components/MyPage/DetailPage';
 import BoardUpdateForm from './components/Board/updateForm';
 import MyInfoUpdatePage from './components/MyPage/MyInfoUpdatePage';
 import MyInfoConfirmPage from './components/MyPage/MyInfoConfirmPage';
 import PrivateRoute from './app/PrivateRoute';
+import MyCalendar from './components/Calendar/Calendar';
 
 export default function App() {
   const { theme } = useSelector((state) => state.ui);

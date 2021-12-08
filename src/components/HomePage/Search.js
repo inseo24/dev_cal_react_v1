@@ -35,8 +35,6 @@ export default function Search() {
     });
   };
 
-  console.log(eventList);
-
   return (
     <>
       <SDiv>
