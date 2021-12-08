@@ -64,20 +64,22 @@ export default function Search() {
       <SDiv>
         {eventList && eventList.length !== 0 && (
           <>
-            <STable>
-              <STHead>
-                <STHeadTR>
-                  <STH>행사</STH>
-                  <STH>일시</STH>
-                  <STH>주관</STH>
-                </STHeadTR>
-              </STHead>
-              <STBody>
-                {eventList.map((event) => (
-                  <EventItem key={event.eventId} event={event} />
-                ))}
-              </STBody>
-            </STable>
+            {!state && (
+              <STable>
+                <STHead>
+                  <STHeadTR>
+                    <STH>행사</STH>
+                    <STH>일시</STH>
+                    <STH>주관</STH>
+                  </STHeadTR>
+                </STHead>
+                <STBody>
+                  {eventList.map((event) => (
+                    <EventItem key={event.eventId} event={event} />
+                  ))}
+                </STBody>
+              </STable>
+            )}
           </>
         )}
       </SDiv>
