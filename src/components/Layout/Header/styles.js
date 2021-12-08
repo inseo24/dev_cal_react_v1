@@ -150,7 +150,6 @@ export const SMenu = styled.div`
 
   width: 100vw;
   height: calc(100% - ${v.headerHeight});
-  transition: 0.3s ease left;
   padding: ${v.lgSpacing};
 
   @media ${b.md} {

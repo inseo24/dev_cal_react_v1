@@ -12,10 +12,10 @@ export default function SignupForm() {
     reset,
   } = useForm();
 
-  const dispacth = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    await dispacth(
+    await dispatch(
       signUpAsync({
         name: data.name,
         email: data.email,
