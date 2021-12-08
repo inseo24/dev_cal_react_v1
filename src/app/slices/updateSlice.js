@@ -11,11 +11,13 @@ export const updateAsync = createAsyncThunk('/auth/update', async (payload) => {
   }
 
   const response = await fetch(
-    `${process.env.REACT_APP_API_BASE}/auth/update/`,
+    `${process.env.REACT_APP_API_BASE}/auth/update`,
     {
       method: 'PUT',
       headers: headers,
       body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
         password: payload.password,
       }),
     },

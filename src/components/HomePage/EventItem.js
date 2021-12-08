@@ -1,12 +1,6 @@
 import { React, useState } from 'react';
 import { Modal } from '../MyPage/Modal';
-import {
-  SALink,
-  SModalText,
-  SModalTitle,
-  STableRow,
-  STableTitle,
-} from './styles';
+import { SALink, SModalText, SModalTitle, STD, STDTitle, STR } from './styles';
 
 const EventItem = (props) => {
   console.log('props : ' + props.data);
@@ -51,11 +45,11 @@ const EventItem = (props) => {
           </SALink>
         </div>
       </Modal>
-      <tr>
-        <STableTitle onClick={showModal}>{event.title}</STableTitle>
-        <STableRow>{startDate}</STableRow>
-        <STableRow>{event.host}</STableRow>
-      </tr>
+      <STR>
+        <STDTitle onClick={showModal}>{event.title}</STDTitle>
+        <STD>{startDate}</STD>
+        <STD>{event.host}</STD>
+      </STR>
     </>
   );
 };

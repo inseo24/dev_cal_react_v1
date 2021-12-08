@@ -11,6 +11,8 @@ const BoardPage = () => {
       <SRight>
         <SLinkButton to="/saveForm">작성</SLinkButton>
       </SRight>
+      <br />
+      <br />
       <BoardList />
     </>
   );

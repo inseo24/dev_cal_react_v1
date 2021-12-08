@@ -30,7 +30,6 @@ export const myPageAsync = createAsyncThunk('/auth/signin', async (payload) => {
 
     if (signIn.token) {
       localStorage.setItem('ACCESS_TOKEN', signIn.token);
-      localStorage.setItem('user', signIn.email);
       window.location.href = '/mypage/update';
     }
 

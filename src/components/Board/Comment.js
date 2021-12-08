@@ -1,5 +1,5 @@
 import { React } from 'react';
-import { STableTitle } from './styles';
+import { STDTitle } from './styles';
 
 const CommentList = (props) => {
   const { id, comment } = props.comment;
@@ -8,7 +8,7 @@ const CommentList = (props) => {
   return (
     <>
       <tr>
-        <STableTitle onClick={deleteComment}>{comment}</STableTitle>
+        <STDTitle onClick={deleteComment}>{comment}</STDTitle>
       </tr>
     </>
   );

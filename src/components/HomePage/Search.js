@@ -10,7 +10,11 @@ import {
   SInput,
   SLabel,
   SSpan,
-  STableHead,
+  STable,
+  STBody,
+  STH,
+  STHead,
+  STHeadTR,
 } from './styles';
 
 export default function Search() {
@@ -60,18 +64,20 @@ export default function Search() {
       <SDiv>
         {eventList && eventList.length !== 0 && (
           <>
-            <thead>
-              <tr>
-                <STableHead>행사</STableHead>
-                <STableHead>일시</STableHead>
-                <STableHead>주관</STableHead>
-              </tr>
-            </thead>
-            <tbody>
-              {eventList.map((event) => (
-                <EventItem key={event.eventId} event={event} />
-              ))}
-            </tbody>
+            <STable>
+              <STHead>
+                <STHeadTR>
+                  <STH>행사</STH>
+                  <STH>일시</STH>
+                  <STH>주관</STH>
+                </STHeadTR>
+              </STHead>
+              <STBody>
+                {eventList.map((event) => (
+                  <EventItem key={event.eventId} event={event} />
+                ))}
+              </STBody>
+            </STable>
           </>
         )}
       </SDiv>

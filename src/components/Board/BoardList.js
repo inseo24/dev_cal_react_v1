@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import BoardItem from './BoardItem';
-import { SBoardTable, STableHead } from './styles';
+import { STable, STBody, STH, STHead, STHeadTR } from './styles';
 
 const BoardList = () => {
   const [boardList, setBoardList] = useState([]);
@@ -15,20 +15,20 @@ const BoardList = () => {
 
   return (
     <>
-      <SBoardTable>
-        <thead>
-          <tr>
-            <STableHead>No.</STableHead>
-            <STableHead>제목</STableHead>
-            <STableHead>등록일</STableHead>
-          </tr>
-        </thead>
-        <tbody>
+      <STable>
+        <STHead>
+          <STHeadTR>
+            <STH>No.</STH>
+            <STH>제목</STH>
+            <STH>등록일</STH>
+          </STHeadTR>
+        </STHead>
+        <STBody>
           {boardList.map((board) => (
             <BoardItem key={board.boardId} board={board} />
           ))}
-        </tbody>
-      </SBoardTable>
+        </STBody>
+      </STable>
     </>
   );
 };

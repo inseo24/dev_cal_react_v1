@@ -1,9 +1,9 @@
 import { React } from 'react';
 import { useHistory } from 'react-router';
-import { STableNum, STableTime, STableTitle } from './styles';
+import { STD, STDTitle, STR } from './styles';
 
 const BoardItem = (props) => {
-  const { boardId, title, createdTime } = props.board;
+  const { boardId, title, createdTime, boardNumber } = props.board;
   const options = {
     weekday: 'long',
     year: 'numeric',
@@ -11,21 +11,23 @@ const BoardItem = (props) => {
     day: 'numeric',
   };
 
+  console.log(props.board);
+
   const cdate = new Date(createdTime).toLocaleDateString(undefined, options);
   const history = useHistory();
   return (
     <>
-      <tr>
-        <STableNum>{boardId}</STableNum>
-        <STableTitle
+      <STR>
+        <STD>{boardNumber}</STD>
+        <STDTitle
           onClick={() => {
             history.push(`/board/${boardId}`);
           }}
         >
           {title}
-        </STableTitle>
-        <STableTime>{cdate}</STableTime>
-      </tr>
+        </STDTitle>
+        <STD>{cdate}</STD>
+      </STR>
     </>
   );
 };

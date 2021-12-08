@@ -13,10 +13,12 @@ export default function ConfirmForm() {
   } = useForm();
 
   const dispacth = useDispatch();
+  const email = localStorage.getItem('user');
 
   const onSubmit = async (data) => {
     await dispacth(
       myPageAsync({
+        email: email,
         password: data.password,
       }),
     );
@@ -30,8 +32,9 @@ export default function ConfirmForm() {
         variant="h5"
         style={{ marginBottom: '4%', fontWeight: '600' }}
       >
-        비밀번호 변경
+        비밀번호 확인
       </Typography>
+      <p>비밀번호를 확인합니다.</p>
       <SLabel htmlFor="password">비밀번호</SLabel>
       <SInput
         id="password"

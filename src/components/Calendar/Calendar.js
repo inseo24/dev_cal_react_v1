@@ -51,27 +51,31 @@ const MyCalendar = () => {
     const accessToken = localStorage.getItem('ACCESS_TOKEN');
     headers.append('Authorization', 'Bearer ' + accessToken);
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE}/scrap/` +
-        event._def.extendedProps.eventId,
-      {
-        method: 'POST',
-        headers: headers,
-      },
-    );
-    if (response.ok) {
-      const scrap = await response.json();
-      alert('스크랩 되었습니다.');
-      return { scrap };
-    }
-
-    if (response.status === 403) {
+    if (accessToken === null || accessToken === '') {
       alert('로그인이 필요합니다.');
-      window.location.href = '/login';
-    }
+    } else {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE}/scrap/` +
+          event._def.extendedProps.eventId,
+        {
+          method: 'POST',
+          headers: headers,
+        },
+      );
+      if (response.ok) {
+        const scrap = await response.json();
+        alert('스크랩 되었습니다.');
+        return { scrap };
+      }
 
-    if (response.status === 500) {
-      alert('이미 스크랩된 이벤트 입니다.');
+      if (response.status === 403) {
+        alert('로그인이 필요합니다.');
+        window.location.href = '/login';
+      }
+
+      if (response.status === 500) {
+        alert('이미 스크랩된 이벤트 입니다.');
+      }
     }
   };
 

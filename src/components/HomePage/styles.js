@@ -28,12 +28,12 @@ export const SInput = styled.input`
   display: block;
   box-sizing: border-box;
   width: 120%;
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: 14px;
   margin: 0;
   outline: 0;
   border: 10px solid #f7f7f7;
-  left: -10%;
+  left: -6%;
   position: relative;
   top: 10px;
   border-radius: 5px;
@@ -71,37 +71,6 @@ export const SButton = styled.button`
   }
 `;
 
-export const STableHead = styled.th`
-  font-size: 20px;
-  text-align: center;
-  width: 200px;
-  border-bottom: 2px solid #ccc;
-`;
-
-export const STableNum = styled.td`
-  padding: 0.625em;
-  border-top: 1px solid primary;
-  text-align: center;
-`;
-
-export const STableTitle = styled.td`
-  font-size: 16px;
-  border-top: 1px solid primary;
-  text-align: left;
-  text-align: center;
-
-  cursor: pointer;
-  :hover {
-    color: #bf1650;
-  }
-`;
-
-export const STableRow = styled.td`
-  font-size: 16px;
-  border-top: 1px solid primary;
-  text-align: center;
-`;
-
 export const SALink = styled.a`
   display: block;
   box-sizing: border-box;
@@ -133,4 +102,63 @@ export const SModalText = styled.p`
 export const SDiv = styled.div`
   margin-top: 50px;
   color: ${({ theme }) => theme.text2};
+`;
+
+export const STable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  border-radius: ${v.borderRadius};
+  overflow: hidden;
+`;
+
+export const STHead = styled.thead`
+  position: sticky;
+  z-index: 100;
+`;
+
+export const STHeadTR = styled.tr`
+  background: ${({ theme }) => theme.bg};
+`;
+
+export const STH = styled.th`
+  font-weight: normal;
+  padding: ${v.smSpacing};
+  color: ${({ theme }) => theme.text};
+  font-weight: 600;
+  font-size: 15px;
+
+  :not(:last-of-type) {
+    border-right: 1px solid ${({ theme }) => theme.bg2};
+  }
+
+  :first-of-type {
+    width: 1%;
+    white-space: nowrap;
+  }
+`;
+
+export const STBody = styled.tbody``;
+
+export const STR = styled.tr`
+  background: white;
+`;
+
+export const STD = styled.td`
+  padding: ${v.smSpacing};
+  border: 1px solid ${({ theme }) => theme.bg2};
+  font-size: 14px;
+  color: black;
+`;
+
+export const STDTitle = styled.td`
+  padding: ${v.smSpacing};
+  width: 60%;
+  border: 1px solid ${({ theme }) => theme.bg2};
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+  :hover {
+    color: ${({ theme }) => theme.primary};
+  }
 `;

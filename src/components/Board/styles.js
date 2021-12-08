@@ -25,6 +25,10 @@ export const SButton = styled.button`
   border: none;
   margin: 20px 60px 20px 0;
   cursor: pointer;
+  :hover {
+    color: white;
+    background: #bf1650;
+  }
 `;
 
 export const SInput = styled.input`
@@ -68,44 +72,63 @@ export const SLinkButton = styled(Link)`
   }
 `;
 
-export const SBoardTable = styled.table`
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-top: 3%;
+export const SComment = styled.p``;
+
+export const STable = styled.table`
   width: 100%;
-  border-top: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
-`;
-
-export const STableHead = styled.th`
-  font-size: 1.2em;
-  font-weight: 400;
-  color: primary;
+  border-collapse: collapse;
   text-align: center;
-  width: 200px;
-  border-bottom: 2px solid #ccc;
+  border-radius: ${v.borderRadius};
+  overflow: hidden;
 `;
 
-export const STableNum = styled.td`
-  font-size: 16px;
-  padding: 0.625em;
-  border-top: 1px solid primary;
-  text-align: center;
+export const STHead = styled.thead`
+  position: sticky;
+  z-index: 100;
 `;
 
-export const STableTitle = styled.td`
-  font-size: 16px;
-  border-top: 1px solid primary;
-  text-align: left;
+export const STHeadTR = styled.tr`
+  background: ${({ theme }) => theme.bg};
+`;
+
+export const STH = styled.th`
+  font-weight: normal;
+  padding: ${v.smSpacing};
+  color: ${({ theme }) => theme.text};
+  font-weight: 600;
+  font-size: 15px;
+
+  :not(:last-of-type) {
+    border-right: 1px solid ${({ theme }) => theme.bg2};
+  }
+
+  :first-of-type {
+    width: 1%;
+    white-space: nowrap;
+  }
+`;
+
+export const STBody = styled.tbody``;
+
+export const STR = styled.tr`
+  background: white;
+`;
+
+export const STD = styled.td`
+  padding: ${v.smSpacing};
+  border: 1px solid ${({ theme }) => theme.bg2};
+  font-size: 14px;
+  color: black;
+`;
+
+export const STDTitle = styled.td`
+  padding: ${v.smSpacing};
+  width: 60%;
+  border: 1px solid ${({ theme }) => theme.bg2};
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
   :hover {
     color: ${({ theme }) => theme.primary};
   }
 `;
-
-export const STableTime = styled.td`
-  font-size: 16px;
-  border-top: 1px solid primary;
-  text-align: center;
-`;
-
-export const SComment = styled.p``;

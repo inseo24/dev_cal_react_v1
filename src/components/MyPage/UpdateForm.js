@@ -17,6 +17,7 @@ export default function UpdateForm() {
   const onSubmit = async (data) => {
     await dispacth(
       updateAsync({
+        name: data.name,
         email: localStorage.getItem('user'),
         password: data.password,
       }),
@@ -31,8 +32,30 @@ export default function UpdateForm() {
         variant="h5"
         style={{ marginBottom: '4%', fontWeight: '600' }}
       >
-        비밀번호 변경
+        개인정보 변경
       </Typography>
+      <SLabel htmlFor="name">이름</SLabel>
+      <SInput
+        id="name"
+        {...register('name', {
+          required: '이름을 입력해주세요.',
+          minLength: {
+            value: 1,
+            message: '최소 1자리를 입력하세요.',
+          },
+          maxLength: {
+            value: 4,
+            message: '최대 4자리까지 입력할 수 있습니다.',
+          },
+          pattern: {
+            value: /^[가-힣]{2,4}$/,
+            message: '한글 이름을 2자에서 4자 이내로 입력해주세요',
+          },
+        })}
+        type="text"
+      />
+      {errors.name && <SSpan role="alert">{errors.name.message}</SSpan>}
+
       <SLabel htmlFor="password">비밀번호</SLabel>
       <SInput
         id="password"
@@ -49,7 +72,7 @@ export default function UpdateForm() {
       />
       {errors.password && <SSpan role="alert">{errors.password.message}</SSpan>}
       <br />
-      <SButton type="submit">Login</SButton>
+      <SButton type="submit">변경</SButton>
     </SForm>
   );
 }
