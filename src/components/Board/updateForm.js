@@ -46,34 +46,68 @@ const BoardUpdateForm = () => {
       });
   }, []);
 
-  const dispatch = useDispatch();
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
-      boardUpdateAsync({
-        boardId: boardId,
-        title: inputTitleRef.current.value,
-        content: inputContentRef.current.value,
-      }),
-    );
+
     if (img !== null) {
       const formData = new FormData();
       formData.append('file', img);
 
-      let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+      let data = {
+        title: inputTitleRef.current.value,
+        content: inputContentRef.current.value,
+      };
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
 
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
-      headers.append('Authorization', 'Bearer ' + accessToken);
-      await formData.append('boardId', boardId);
 
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE}/image`,
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_BASE}/board/` + boardId + '/image',
         formData,
         {
-          headers: headers,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + accessToken,
+          },
         },
       );
+
+      if (res.ok) {
+        const board = await res.json();
+        return board;
+      }
+    } else {
+      const formData = new FormData();
+
+      let data = {
+        title: inputTitleRef.current.value,
+        content: inputContentRef.current.value,
+      };
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
+
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_BASE}/board/` + boardId,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        },
+      );
+
+      if (res.ok) {
+        const board = await res.json();
+        return board;
+      }
     }
   };
 
