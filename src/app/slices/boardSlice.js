@@ -1,7 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export let boardId = '';
-
 export const boardPostAsync = createAsyncThunk('/board', async (payload) => {
   let headers = new Headers({
     'Content-Type': 'application/json',
@@ -18,14 +16,11 @@ export const boardPostAsync = createAsyncThunk('/board', async (payload) => {
     body: JSON.stringify({
       title: payload.title,
       content: payload.content,
-      imgUrl: payload.imgUrl,
     }),
   });
 
   if (response.ok) {
     const board = await response.json();
-
-    boardId = await board.data[0].boardId;
 
     return await { board };
   }
@@ -56,8 +51,6 @@ export const boardUpdateAsync = createAsyncThunk('/board', async (payload) => {
   if (response.ok) {
     const board = await response.json();
 
-    boardId = await board.data[0].boardId;
-
     return await { board };
   }
 });
@@ -82,8 +75,6 @@ export const boardDeleteAsync = createAsyncThunk('/board', async (payload) => {
 
   if (response.ok) {
     const board = await response.json();
-
-    boardId = await board.data[0].boardId;
 
     return await { board };
   }

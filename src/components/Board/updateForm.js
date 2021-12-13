@@ -68,7 +68,7 @@ const BoardUpdateForm = () => {
       await formData.append('boardId', boardId);
 
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE}/file/image`,
+        `${process.env.REACT_APP_API_BASE}/image`,
         formData,
         {
           headers: headers,

@@ -1,10 +1,7 @@
 import { Container, Grid, Typography } from '@mui/material';
 import axios from 'axios';
-
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { boardId, boardPostAsync } from '../../app/slices/boardSlice';
 import { SButton, SInput } from './styles';
 
 const BoardSaveForm = () => {
@@ -12,33 +9,68 @@ const BoardSaveForm = () => {
   const [content, setContent] = useState('');
   const [img, setImage] = useState(null);
 
-  const dispatch = useDispatch();
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
-      boardPostAsync({
-        title: title,
-        content: content,
-      }),
-    );
+
     if (img !== null) {
       const formData = new FormData();
       formData.append('file', img);
 
-      let headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+      let data = {
+        title: title,
+        content: content,
+      };
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
 
       const accessToken = localStorage.getItem('ACCESS_TOKEN');
-      headers.append('Authorization', 'Bearer ' + accessToken);
-      await formData.append('boardId', boardId);
 
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE}/file/image`,
+        `${process.env.REACT_APP_API_BASE}/board/image`,
         formData,
         {
-          headers: headers,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + accessToken,
+          },
         },
       );
+
+      if (res.ok) {
+        const board = await res.json();
+        return board;
+      }
+    } else {
+      const formData = new FormData();
+
+      let data = {
+        title: title,
+        content: content,
+      };
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
+
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE}/board`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        },
+      );
+
+      if (res.ok) {
+        const board = await res.json();
+        return board;
+      }
     }
   };
 
