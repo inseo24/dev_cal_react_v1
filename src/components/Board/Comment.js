@@ -1,15 +1,95 @@
+import { TextField } from '@mui/material';
+import { useRef, useState } from 'react';
 import { React } from 'react';
 import { STDTitle } from './styles';
 
 const CommentList = (props) => {
   const { id, comment } = props.comment;
+  const [isEdit, setIsEdit] = useState(false);
+  const inputRef = useRef();
 
-  const deleteComment = (e) => {};
+  const deleteComment = (e) => {
+    if (id !== null) {
+      let headers = new Headers({
+        'Content-Type': 'application/json',
+      });
+
+      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+      if (accessToken && accessToken != null) {
+        headers.append('Authorization', 'Bearer ' + accessToken);
+      }
+
+      const response = fetch(
+        `${process.env.REACT_APP_API_BASE}/comment/` + id,
+        {
+          method: 'DELETE',
+          headers: headers,
+        },
+      );
+
+      if (response.ok) {
+        const comment = response.json();
+
+        return { comment };
+      }
+    }
+  };
+
+  const updateComment = () => {
+    setIsEdit(true);
+  };
+
+  const saveComment = async (e) => {
+    e.preventDefault();
+    setIsEdit(false);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+
+    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+    if (accessToken && accessToken != null) {
+      headers.append('Authorization', 'Bearer ' + accessToken);
+    }
+    const response = fetch(`${process.env.REACT_APP_API_BASE}/comment/` + id, {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify({
+        comment: inputRef.current.value,
+      }),
+    });
+
+    if (response.ok) {
+      const comment = response.json();
+
+      return { comment };
+    }
+  };
+
   return (
     <>
-      <tr>
-        <STDTitle onClick={deleteComment}>{comment}</STDTitle>
-      </tr>
+      {id !== 0 && (
+        <tr>
+          {!isEdit && (
+            <ol key={id}>
+              {comment}
+              <button onClick={updateComment}>수정</button>
+              <button onClick={deleteComment} id={id}>
+                삭제
+              </button>
+            </ol>
+          )}
+          {isEdit && (
+            <TextField
+              type="text"
+              inputRef={inputRef}
+              defaultValue={comment}
+            ></TextField>
+          )}
+          {isEdit && <button onClick={saveComment}>저장</button>}
+        </tr>
+      )}
     </>
   );
 };
