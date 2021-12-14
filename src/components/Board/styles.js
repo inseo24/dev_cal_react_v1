@@ -10,6 +10,13 @@ export const SBoardPage = styled.div`
   height: calc(100vh - ${v.headerHeight} - ${v.lgSpacing} * 2);
 `;
 
+export const SBoardDetailPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - ${v.headerHeight} - ${v.lgSpacing} * 6);
+`;
+
 export const STitle = styled.h1`
   color: ${({ theme }) => theme.primary};
   padding-top: 5%;
@@ -31,6 +38,23 @@ export const SButton = styled.button`
   }
 `;
 
+export const SButtonDetail = styled.button`
+  text-decoration: none;
+  color: primary;
+  background: ${({ theme }) => theme.primary};
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
+  border-radius: ${v.borderRadius};
+  outline: none;
+  border: none;
+  float: right;
+
+  cursor: pointer;
+  :hover {
+    color: white;
+    background: #bf1650;
+  }
+`;
+
 export const SInput = styled.input`
   background-color: primary;
   height: 40px;
@@ -38,6 +62,17 @@ export const SInput = styled.input`
   border: 1px solid #ddd;
   margin: 10px 0 20px 0;
   padding: 20px;
+  display: block;
+  width: 100%;
+`;
+
+export const SInputComment = styled.input`
+  background-color: primary;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 10px 0 20px 0;
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
   display: block;
   width: 100%;
 `;
@@ -108,6 +143,23 @@ export const STH = styled.th`
   }
 `;
 
+export const STHNB = styled.th`
+  font-weight: normal;
+  padding: ${v.smSpacing};
+  color: ${({ theme }) => theme.text};
+  font-weight: 400;
+  font-size: 15px;
+
+  :not(:last-of-type) {
+    border-right: 1px solid ${({ theme }) => theme.bg2};
+  }
+
+  :first-of-type {
+    width: 1%;
+    white-space: nowrap;
+  }
+`;
+
 export const STBody = styled.tbody``;
 
 export const STR = styled.tr`
@@ -119,6 +171,23 @@ export const STD = styled.td`
   border: 1px solid ${({ theme }) => theme.bg2};
   font-size: 14px;
   color: black;
+`;
+
+export const STDetail = styled.td`
+  padding: ${v.smSpacing};
+  font-size: 14px;
+  word-break: break-all;
+  width: 500px;
+  color: black;
+`;
+
+export const STDetailButton = styled.td`
+  padding: ${v.smSpacing};
+  font-size: 14px;
+  width: 500px;
+  word-break: break-all;
+  color: black;
+  text-align: right;
 `;
 
 export const STDTitle = styled.td`

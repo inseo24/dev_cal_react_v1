@@ -5,16 +5,38 @@ import { useHistory } from 'react-router';
 import { boardDeleteAsync } from '../../app/slices/boardSlice';
 import { commentPostAsync } from '../../app/slices/commentSlice';
 import CommentList from './Comment';
-import { SButton, SInput } from './styles';
+import {
+  SBoardDetailPage,
+  SBoardPage,
+  SButton,
+  SButtonDetail,
+  SInput,
+  SInputComment,
+  SLeft,
+  STable,
+  STBody,
+  STD,
+  STDetail,
+  STDetailButton,
+  STH,
+  STHead,
+  STHeadTR,
+  STHNB,
+  STitle,
+  STR,
+} from './styles';
 
 const BoardDetail = () => {
   const [board, setBoard] = useState({
     boardId: '',
+    name: '',
     title: '',
     content: '',
     createdTime: '',
     imgUrl: '',
   });
+
+  const [name, setName] = useState('');
 
   const history = useHistory();
 
@@ -27,7 +49,6 @@ const BoardDetail = () => {
 
   const accessToken = localStorage.getItem('ACCESS_TOKEN');
   headers.append('Authorization', 'Bearer ' + accessToken);
-  console.log(commentList);
 
   useEffect(() => {
     fetch(
@@ -58,6 +79,7 @@ const BoardDetail = () => {
       .then((res) => res.json())
       .then((res) => {
         setBoard(res.data[0]);
+        setName(res.data[0].userId.name);
 
         if (
           localStorage.getItem('user') === null ||
@@ -110,44 +132,69 @@ const BoardDetail = () => {
 
   return (
     <>
-      <div>boardId : {board.boardId}</div>
-      <div>Title : {board.title}</div>
-      <div>content : {board.content}</div>
-      <div>cratedTime : {cdate}</div>
-      <img src={board.imgUrl} alt="img" />
-      <Grid item xs={12}>
-        <form onSubmit={onSubmit}>
-          <SInput
-            variant="outlined"
-            required
-            fullWidth
-            color="secondary"
-            id="comment"
-            placeholder="댓글을 입력하세요"
-            name="comment"
-            value={comment}
-            type="text"
-            maxLength="25"
-            onChange={(e) => setComment(e.target.value)}
-            style={{ background: 'white', width: '420px' }}
-          />
-          <Grid item xs={12}>
-            <SButton type="submit">저장</SButton>
-          </Grid>
-
-          {commentList.map((comment) => (
-            <CommentList key={comment.id} comment={comment} />
-          ))}
-        </form>
-        <Grid item xs={12}>
-          <SButton onClick={() => history.push(`/updateForm/${board.boardId}`)}>
-            수정
-          </SButton>
-        </Grid>
-        <Grid item xs={12}>
-          <SButton onClick={detlteButton}>삭제</SButton>
-        </Grid>
-      </Grid>
+      <SLeft>
+        <STitle>Board</STitle>
+      </SLeft>
+      <SBoardDetailPage>
+        <div>
+          <STable>
+            <STHead>
+              <STHeadTR>
+                <STH>제목</STH>
+                <STHNB colSpan={3}>{board.title}</STHNB>
+              </STHeadTR>
+              <STHeadTR>
+                <STH>글쓴이</STH>
+                <STHNB>{name}</STHNB>
+                <STH>작성일자</STH>
+                <STHNB>{cdate}</STHNB>
+              </STHeadTR>
+            </STHead>
+            <STBody>
+              <STR>
+                <STDetail colSpan={4}>{board.content}</STDetail>
+              </STR>
+              <STR>
+                <STDetailButton colSpan={3}></STDetailButton>
+                <STDetailButton colSpan={1}>
+                  <SButton
+                    onClick={() => history.push(`/updateForm/${board.boardId}`)}
+                  >
+                    수정
+                  </SButton>
+                  <SButton onClick={detlteButton}>삭제</SButton>
+                </STDetailButton>
+              </STR>
+            </STBody>
+          </STable>
+          <br />
+          <STable>
+            <STBody>
+              <STR>
+                <STDetail colSpan={4}>
+                  <form onSubmit={onSubmit}>
+                    <SInputComment
+                      variant="outlined"
+                      fullWidth
+                      id="comment"
+                      placeholder="댓글을 입력하세요"
+                      name="comment"
+                      value={comment}
+                      type="text"
+                      maxLength="100"
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                    <SButtonDetail type="submit">저장</SButtonDetail>
+                  </form>
+                </STDetail>
+              </STR>
+              {commentList.map((comment) => (
+                <CommentList key={comment.id} comment={comment} />
+              ))}
+            </STBody>
+          </STable>
+        </div>
+      </SBoardDetailPage>
     </>
   );
 };

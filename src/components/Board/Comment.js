@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { useRef, useState } from 'react';
 import { React } from 'react';
-import { STDTitle } from './styles';
+import { STDetail, STDTitle, STR } from './styles';
 
 const CommentList = (props) => {
   const { id, comment } = props.comment;
@@ -70,25 +70,36 @@ const CommentList = (props) => {
   return (
     <>
       {id !== 0 && (
-        <tr>
-          {!isEdit && (
-            <ol key={id}>
-              {comment}
-              <button onClick={updateComment}>수정</button>
-              <button onClick={deleteComment} id={id}>
-                삭제
-              </button>
-            </ol>
-          )}
-          {isEdit && (
-            <TextField
-              type="text"
-              inputRef={inputRef}
-              defaultValue={comment}
-            ></TextField>
-          )}
-          {isEdit && <button onClick={saveComment}>저장</button>}
-        </tr>
+        <>
+          <STR>
+            <STDetail colSpan={4}>
+              {!isEdit && (
+                <ol key={id}>
+                  {comment}
+                  <button onClick={updateComment}>수정</button>
+                  <button onClick={deleteComment} id={id}>
+                    삭제
+                  </button>
+                </ol>
+              )}
+              {isEdit && (
+                <TextField
+                  type="text"
+                  size="small"
+                  inputRef={inputRef}
+                  defaultValue={comment}
+                ></TextField>
+              )}
+              {isEdit && <button onClick={saveComment}>저장</button>}
+            </STDetail>
+          </STR>
+          <STR>
+            <STDetail colSpan={4}></STDetail>
+          </STR>
+          <STR>
+            <STDetail colSpan={4}></STDetail>
+          </STR>
+        </>
       )}
     </>
   );

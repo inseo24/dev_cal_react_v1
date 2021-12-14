@@ -11,8 +11,6 @@ const BoardItem = (props) => {
     day: 'numeric',
   };
 
-  console.log(props.board);
-
   const cdate = new Date(createdTime).toLocaleDateString(undefined, options);
   const history = useHistory();
   return (
