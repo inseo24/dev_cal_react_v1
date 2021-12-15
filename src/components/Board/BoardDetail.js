@@ -33,7 +33,7 @@ const BoardDetail = () => {
 
   const [name, setName] = useState('');
   const [imgUrl, setImgUrl] = useState();
-
+  console.log(imgUrl);
   const history = useHistory();
 
   const [comment, setComment] = useState('');
@@ -76,7 +76,7 @@ const BoardDetail = () => {
       .then((res) => {
         setBoard(res.data[0]);
         setName(res.data[0].userId.name);
-        setImgUrl(res.data[0].images[0].imgUrl);
+        setImgUrl(res.data[0].images[0].name);
 
         if (
           localStorage.getItem('user') === null ||
@@ -129,9 +129,6 @@ const BoardDetail = () => {
 
   return (
     <>
-      <SLeft>
-        <STitle>Board</STitle>
-      </SLeft>
       <SBoardDetailPage>
         <div>
           <STable>
@@ -150,7 +147,11 @@ const BoardDetail = () => {
             <STBody>
               <STR>
                 <STDetail colSpan={4}>
-                  <img src={imgUrl} alt=" " style={{ width: '300px' }} />
+                  <img
+                    src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
+                    alt=" "
+                    style={{ width: '300px' }}
+                  />
                   <br />
                   {board.content}
                 </STDetail>
