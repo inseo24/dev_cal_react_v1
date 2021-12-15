@@ -23,6 +23,7 @@ export const commentPostAsync = createAsyncThunk(
 
     if (response.ok) {
       const comment = await response.json();
+      window.location.href = window.location.pathname;
 
       return await { comment };
     }

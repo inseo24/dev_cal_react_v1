@@ -75,6 +75,7 @@ export const boardDeleteAsync = createAsyncThunk('/board', async (payload) => {
 
   if (response.ok) {
     const board = await response.json();
+    window.location.href = window.location.pathname;
 
     return await { board };
   }

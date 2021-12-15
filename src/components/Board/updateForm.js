@@ -2,9 +2,7 @@ import { Container, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { boardUpdateAsync } from '../../app/slices/boardSlice';
 import { SButton, SInput } from './styles';
 
 const BoardUpdateForm = () => {
@@ -36,7 +34,6 @@ const BoardUpdateForm = () => {
       .then((res) => res.json())
       .then((res) => {
         setBoard(res.data[0]);
-        console.log(res.data[0]);
         if (
           localStorage.getItem('user') === null ||
           localStorage.getItem('user') === ''
@@ -75,9 +72,10 @@ const BoardUpdateForm = () => {
         },
       );
 
-      if (res.ok) {
-        const board = await res.json();
-        return board;
+      if (res.status === 200) {
+        alert('수정되었습니다.');
+        window.location.href = '/board/' + board.boardId;
+        return;
       }
     } else {
       const formData = new FormData();
@@ -104,9 +102,10 @@ const BoardUpdateForm = () => {
         },
       );
 
-      if (res.ok) {
-        const board = await res.json();
-        return board;
+      if (res.status === 200) {
+        alert('수정되었습니다.');
+        window.location.href = '/board/' + board.boardId;
+        return;
       }
     }
   };

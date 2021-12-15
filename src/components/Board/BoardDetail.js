@@ -9,7 +9,6 @@ import {
   SButton,
   SButtonDetail,
   SInputComment,
-  SLeft,
   STable,
   STBody,
   STDetail,
@@ -18,7 +17,6 @@ import {
   STHead,
   STHeadTR,
   STHNB,
-  STitle,
   STR,
 } from './styles';
 
@@ -32,8 +30,8 @@ const BoardDetail = () => {
   });
 
   const [name, setName] = useState('');
+  const [user, setUser] = useState('');
   const [imgUrl, setImgUrl] = useState();
-  console.log(imgUrl);
   const history = useHistory();
 
   const [comment, setComment] = useState('');
@@ -76,7 +74,12 @@ const BoardDetail = () => {
       .then((res) => {
         setBoard(res.data[0]);
         setName(res.data[0].userId.name);
-        setImgUrl(res.data[0].images[0].name);
+        if (res.data[0].images[0] === undefined) {
+          setImgUrl('');
+        } else {
+          setImgUrl(res.data[0].images[0].name);
+        }
+        setUser(res.data[0].userId.email);
 
         if (
           localStorage.getItem('user') === null ||
@@ -89,7 +92,7 @@ const BoardDetail = () => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
       commentPostAsync({
@@ -99,19 +102,36 @@ const BoardDetail = () => {
     );
   };
 
-  const detlteButton = async (e) => {
-    const answer = window.confirm('글을 삭제하시겠습니까?');
+  const detlteButton = (e) => {
+    if (localStorage.getItem('user') === user) {
+      const answer = window.confirm('글을 삭제하시겠습니까?');
+      if (answer) {
+        e.preventDefault();
+        dispatch(
+          boardDeleteAsync({
+            comment: comment,
+            boardId: window.location.pathname.split('/')[2],
+          }),
+        );
 
-    if (answer) {
-      e.preventDefault();
-      dispatch(
-        boardDeleteAsync({
-          comment: comment,
-          boardId: window.location.pathname.split('/')[2],
-        }),
-      );
+        alert('글을 삭제하였습니다.');
+        window.location.href = '/board';
+      }
+    } else {
+      alert('회원이 아닙니다.');
+    }
+  };
 
-      alert('글을 삭제하였습니다.');
+  const submitComment = (e) => {
+    e.preventDefault();
+    setComment(e.target.value);
+  };
+
+  const updateBoard = () => {
+    if (localStorage.getItem('user') === user) {
+      history.push(`/updateForm/${board.boardId}`);
+    } else {
+      alert('회원이 아닙니다.');
     }
   };
 
@@ -129,74 +149,72 @@ const BoardDetail = () => {
 
   return (
     <>
-      <SBoardDetailPage>
-        <div>
-          <STable>
-            <STHead>
-              <STHeadTR>
-                <STH>제목</STH>
-                <STHNB colSpan={3}>{board.title}</STHNB>
-              </STHeadTR>
-              <STHeadTR>
-                <STH>글쓴이</STH>
-                <STHNB>{name}</STHNB>
-                <STH>작성일자</STH>
-                <STHNB>{cdate}</STHNB>
-              </STHeadTR>
-            </STHead>
-            <STBody>
-              <STR>
-                <STDetail colSpan={4}>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
-                    alt=" "
-                    style={{ width: '300px' }}
-                  />
-                  <br />
-                  {board.content}
-                </STDetail>
-              </STR>
-              <STR>
-                <STDetailButton colSpan={3}></STDetailButton>
-                <STDetailButton colSpan={1}>
-                  <SButton
-                    onClick={() => history.push(`/updateForm/${board.boardId}`)}
-                  >
-                    수정
-                  </SButton>
-                  <SButton onClick={detlteButton}>삭제</SButton>
-                </STDetailButton>
-              </STR>
-            </STBody>
-          </STable>
-          <br />
-          <STable>
-            <STBody>
-              <STR>
-                <STDetail colSpan={4}>
-                  <form onSubmit={onSubmit}>
-                    <SInputComment
-                      variant="outlined"
-                      fullWidth
-                      id="comment"
-                      placeholder="댓글을 입력하세요"
-                      name="comment"
-                      value={comment}
-                      type="text"
-                      maxLength="100"
-                      onChange={(e) => setComment(e.target.value)}
-                    />
-                    <SButtonDetail type="submit">저장</SButtonDetail>
-                  </form>
-                </STDetail>
-              </STR>
-              {commentList.map((comment) => (
-                <CommentList key={comment.id} comment={comment} />
-              ))}
-            </STBody>
-          </STable>
-        </div>
-      </SBoardDetailPage>
+      <STable>
+        <STHead>
+          <STHeadTR>
+            <STH>제목</STH>
+            <STHNB colSpan={3}>{board.title}</STHNB>
+          </STHeadTR>
+          <STHeadTR>
+            <STH>글쓴이</STH>
+            <STHNB>{name}</STHNB>
+            <STH>작성일자</STH>
+            <STHNB>{cdate}</STHNB>
+          </STHeadTR>
+        </STHead>
+        <STBody>
+          <STR>
+            <STDetail colSpan={4}></STDetail>
+          </STR>
+          <STR>
+            <STDetail colSpan={1}></STDetail>
+            <STDetail colSpan={3}>
+              <img
+                src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
+                alt=" "
+                style={{ width: '300px' }}
+              />
+              <br />
+              <br />
+              {board.content}
+            </STDetail>
+          </STR>
+          <STR>
+            <STDetailButton colSpan={3}></STDetailButton>
+            <STDetailButton colSpan={1}>
+              <SButton onClick={updateBoard}>수정</SButton>
+              <SButton onClick={detlteButton}>삭제</SButton>
+              <SButton onClick={() => history.push(`/board`)}>목록</SButton>
+            </STDetailButton>
+          </STR>
+        </STBody>
+      </STable>
+      <br />
+      <STable>
+        <STBody>
+          <STR>
+            <STDetail colSpan={4}>
+              <form onSubmit={onSubmit}>
+                <SInputComment
+                  variant="outlined"
+                  fullWidth
+                  id="comment"
+                  placeholder="댓글을 입력하세요"
+                  name="comment"
+                  value={comment}
+                  type="text"
+                  maxLength="100"
+                  onChange={submitComment}
+                />
+                <SButtonDetail type="submit">저장</SButtonDetail>
+              </form>
+            </STDetail>
+          </STR>
+          {commentList.map((comment) => (
+            <CommentList key={comment.id} comment={comment} />
+          ))}
+        </STBody>
+      </STable>
     </>
   );
 };

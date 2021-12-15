@@ -14,7 +14,7 @@ export const SBoardDetailPage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - ${v.headerHeight} - ${v.lgSpacing} * 6);
+  height: calc(100vh - ${v.headerHeight} - ${v.lgSpacing} * 2);
 `;
 
 export const STitle = styled.h1`
@@ -178,6 +178,7 @@ export const STDetail = styled.td`
   font-size: 14px;
   word-break: break-all;
   width: 500px;
+  text-align: left;
   color: black;
 `;
 

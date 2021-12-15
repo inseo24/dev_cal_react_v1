@@ -8,9 +8,6 @@ const BoardSaveForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [img, setImage] = useState(null);
-  const [imgUrl, setImgUrl] = useState();
-
-  console.log(img);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +20,6 @@ const BoardSaveForm = () => {
         title: title,
         content: content,
       };
-
-      formData.append('imgUrl', imgUrl);
 
       formData.append(
         'data',
@@ -43,10 +38,10 @@ const BoardSaveForm = () => {
           },
         },
       );
-
-      if (res.ok) {
-        const board = await res.json();
-        return board;
+      if (res.status === 200) {
+        alert('저장되었습니다.');
+        window.location.href = '/board';
+        return;
       }
     } else {
       const formData = new FormData();
@@ -73,9 +68,10 @@ const BoardSaveForm = () => {
         },
       );
 
-      if (res.ok) {
-        const board = await res.json();
-        return board;
+      if (res.status === 200) {
+        alert('저장되었습니다.');
+        window.location.href = '/board';
+        return;
       }
     }
   };
@@ -83,7 +79,6 @@ const BoardSaveForm = () => {
   const onChange = (e) => {
     e.preventDefault();
     setImage(e.target.files[0]);
-    setImgUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
