@@ -1,37 +1,49 @@
 import { TextField } from '@mui/material';
 import { useRef, useState } from 'react';
 import { React } from 'react';
-import { STDetail, STDTitle, STR } from './styles';
+import { STDetail, STR } from './styles';
 
 const CommentList = (props) => {
   const { id, comment } = props.comment;
+  const user = props.comment.userId.email;
+  const boardId = window.location.pathname.split('/')[2];
+
   const [isEdit, setIsEdit] = useState(false);
   const inputRef = useRef();
 
   const deleteComment = (e) => {
     if (id !== null) {
-      let headers = new Headers({
-        'Content-Type': 'application/json',
-      });
+      if (localStorage.getItem('user') === user) {
+        const answer = window.confirm('댓글을 삭제하시겠습니까?');
 
-      const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        if (answer) {
+          e.preventDefault();
+          let headers = new Headers({
+            'Content-Type': 'application/json',
+          });
 
-      if (accessToken && accessToken != null) {
-        headers.append('Authorization', 'Bearer ' + accessToken);
-      }
+          const accessToken = localStorage.getItem('ACCESS_TOKEN');
 
-      const response = fetch(
-        `${process.env.REACT_APP_API_BASE}/comment/` + id,
-        {
-          method: 'DELETE',
-          headers: headers,
-        },
-      );
+          if (accessToken && accessToken != null) {
+            headers.append('Authorization', 'Bearer ' + accessToken);
+          }
 
-      if (response.ok) {
-        const comment = response.json();
+          const response = fetch(
+            `${process.env.REACT_APP_API_BASE}/comment/` + id,
+            {
+              method: 'DELETE',
+              headers: headers,
+            },
+          );
 
-        return { comment };
+          if (response.status === 200) {
+            alert('댓글을 삭제하였습니다.');
+            window.location.href = '/board/' + boardId;
+            return;
+          }
+        }
+      } else {
+        alert('회원이 아닙니다.');
       }
     }
   };
@@ -60,10 +72,12 @@ const CommentList = (props) => {
       }),
     });
 
-    if (response.ok) {
-      const comment = response.json();
+    console.log(response);
 
-      return { comment };
+    if (response.status === 200) {
+      alert('댓글을 수정하였습니다.');
+      window.location.href = '/board/' + boardId;
+      return;
     }
   };
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SButton, SInput } from './styles';
+import { SButton } from './styles';
 
 const BoardUpdateForm = () => {
   const inputTitleRef = useRef();

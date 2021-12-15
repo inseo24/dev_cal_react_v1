@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { STD, STDTitle, STR } from './styles';
 
 const BoardItem = (props) => {
-  const { boardId, title, createdTime, boardNumber, images } = props.board;
+  const { boardId, title, createdTime, boardNumber } = props.board;
 
   const options = {
     weekday: 'long',

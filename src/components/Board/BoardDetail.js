@@ -5,7 +5,6 @@ import { boardDeleteAsync } from '../../app/slices/boardSlice';
 import { commentPostAsync } from '../../app/slices/commentSlice';
 import CommentList from './Comment';
 import {
-  SBoardDetailPage,
   SButton,
   SButtonDetail,
   SInputComment,
