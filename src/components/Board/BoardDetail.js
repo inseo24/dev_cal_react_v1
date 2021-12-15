@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -7,15 +6,12 @@ import { commentPostAsync } from '../../app/slices/commentSlice';
 import CommentList from './Comment';
 import {
   SBoardDetailPage,
-  SBoardPage,
   SButton,
   SButtonDetail,
-  SInput,
   SInputComment,
   SLeft,
   STable,
   STBody,
-  STD,
   STDetail,
   STDetailButton,
   STH,
@@ -33,10 +29,10 @@ const BoardDetail = () => {
     title: '',
     content: '',
     createdTime: '',
-    imgUrl: '',
   });
 
   const [name, setName] = useState('');
+  const [imgUrl, setImgUrl] = useState();
 
   const history = useHistory();
 
@@ -80,6 +76,7 @@ const BoardDetail = () => {
       .then((res) => {
         setBoard(res.data[0]);
         setName(res.data[0].userId.name);
+        setImgUrl(res.data[0].images[0].imgUrl);
 
         if (
           localStorage.getItem('user') === null ||
@@ -152,7 +149,11 @@ const BoardDetail = () => {
             </STHead>
             <STBody>
               <STR>
-                <STDetail colSpan={4}>{board.content}</STDetail>
+                <STDetail colSpan={4}>
+                  <img src={imgUrl} alt=" " style={{ width: '300px' }} />
+                  <br />
+                  {board.content}
+                </STDetail>
               </STR>
               <STR>
                 <STDetailButton colSpan={3}></STDetailButton>

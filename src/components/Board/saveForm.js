@@ -8,6 +8,9 @@ const BoardSaveForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [img, setImage] = useState(null);
+  const [imgUrl, setImgUrl] = useState();
+
+  console.log(img);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +23,9 @@ const BoardSaveForm = () => {
         title: title,
         content: content,
       };
+
+      formData.append('imgUrl', imgUrl);
+
       formData.append(
         'data',
         new Blob([JSON.stringify(data)], { type: 'application/json' }),
@@ -77,6 +83,7 @@ const BoardSaveForm = () => {
   const onChange = (e) => {
     e.preventDefault();
     setImage(e.target.files[0]);
+    setImgUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
