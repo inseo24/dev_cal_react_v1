@@ -7,13 +7,6 @@ const DetailPage = () => {
   const [scrapList, setScrapList] = useState([]);
   const history = useHistory();
 
-  let location = window.location.href;
-  window.history.pushState(null, null, location);
-
-  window.onpopstate = function (e) {
-    window.history.go(1);
-  };
-
   let headers = new Headers({
     'Content-Type': 'application/json',
   });

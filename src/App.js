@@ -23,6 +23,7 @@ import MyCalendar from './components/Calendar/Calendar';
 export default function App() {
   const { theme } = useSelector((state) => state.ui);
   const currentTheme = theme === 'light' ? lightTheme : darkTheme;
+  let token = localStorage.getItem('ACCESS_TOKEN');
 
   useEffect(() => {
     const bodyEl = document.getElementsByTagName('body')[0];
@@ -49,9 +50,11 @@ export default function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/login">
-              <SignIn />
-            </Route>
+            {!token && (
+              <Route exact path="/login">
+                <SignIn />
+              </Route>
+            )}
             <Route exact path="/signup">
               <SignUp />
             </Route>
