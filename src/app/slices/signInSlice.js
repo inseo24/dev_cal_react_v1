@@ -28,7 +28,7 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
     if (signIn.token) {
       localStorage.setItem('ACCESS_TOKEN', signIn.token);
       localStorage.setItem('user', signIn.email);
-      window.location.href = '/';
+      window.location.href = '/mypage';
     }
 
     return { signIn };
