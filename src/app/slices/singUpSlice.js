@@ -34,7 +34,6 @@ export const signUpAsync = createAsyncThunk('/auth/signup', async (payload) => {
   }
 
   if (response.status === 500) {
-    let msg = await response.json();
-    alert(msg.message);
+    alert('이메일이 중복입니다.');
   }
 });

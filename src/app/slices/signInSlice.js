@@ -18,7 +18,7 @@ export const signInAsync = createAsyncThunk('/auth/signin', async (payload) => {
   );
 
   if (response.status === 400) {
-    alert('비밀번호를 확인해주세요.');
+    alert('이메일과 비밀번호를 확인해주세요.');
   }
 
   if (response.ok) {

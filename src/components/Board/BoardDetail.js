@@ -174,11 +174,14 @@ const BoardDetail = () => {
               <STR>
                 <STDetail colSpan={1}></STDetail>
                 <STDetail colSpan={3}>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
-                    alt=" "
-                    style={{ width: '300px' }}
-                  />
+                  {imgUrl && (
+                    <img
+                      src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
+                      alt=" "
+                      style={{ width: '300px' }}
+                    />
+                  )}
+
                   <br />
                   <br />
                   {board.content}
