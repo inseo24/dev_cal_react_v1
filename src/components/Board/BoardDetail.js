@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { boardDeleteAsync } from '../../app/slices/boardSlice';
@@ -6,10 +7,12 @@ import { commentPostAsync } from '../../app/slices/commentSlice';
 import CommentList from './Comment';
 import {
   SButton,
+  SButtonBoard,
   SButtonDetail,
   SInputComment,
   STable,
   STBody,
+  STDComment,
   STDetail,
   STDetailButton,
   STH,
@@ -20,6 +23,8 @@ import {
 } from './styles';
 
 const BoardDetail = () => {
+  let state = useSelector((state) => state.ui.menuOpen);
+
   const [board, setBoard] = useState({
     boardId: '',
     name: '',
@@ -148,72 +153,80 @@ const BoardDetail = () => {
 
   return (
     <>
-      <STable>
-        <STHead>
-          <STHeadTR>
-            <STH>제목</STH>
-            <STHNB colSpan={3}>{board.title}</STHNB>
-          </STHeadTR>
-          <STHeadTR>
-            <STH>글쓴이</STH>
-            <STHNB>{name}</STHNB>
-            <STH>작성일자</STH>
-            <STHNB>{cdate}</STHNB>
-          </STHeadTR>
-        </STHead>
-        <STBody>
-          <STR>
-            <STDetail colSpan={4}></STDetail>
-          </STR>
-          <STR>
-            <STDetail colSpan={1}></STDetail>
-            <STDetail colSpan={3}>
-              <img
-                src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
-                alt=" "
-                style={{ width: '300px' }}
-              />
-              <br />
-              <br />
-              {board.content}
-            </STDetail>
-          </STR>
-          <STR>
-            <STDetailButton colSpan={3}></STDetailButton>
-            <STDetailButton colSpan={1}>
-              <SButton onClick={updateBoard}>수정</SButton>
-              <SButton onClick={detlteButton}>삭제</SButton>
-              <SButton onClick={() => history.push(`/board`)}>목록</SButton>
-            </STDetailButton>
-          </STR>
-        </STBody>
-      </STable>
-      <br />
-      <STable>
-        <STBody>
-          <STR>
-            <STDetail colSpan={4}>
-              <form onSubmit={onSubmit}>
-                <SInputComment
-                  variant="outlined"
-                  fullWidth
-                  id="comment"
-                  placeholder="댓글을 입력하세요"
-                  name="comment"
-                  value={comment}
-                  type="text"
-                  maxLength="100"
-                  onChange={submitComment}
-                />
-                <SButtonDetail type="submit">저장</SButtonDetail>
-              </form>
-            </STDetail>
-          </STR>
-          {commentList.map((comment) => (
-            <CommentList key={comment.id} comment={comment} />
-          ))}
-        </STBody>
-      </STable>
+      {!state && (
+        <>
+          <STable>
+            <STHead>
+              <STHeadTR>
+                <STH>제목</STH>
+                <STHNB colSpan={3}>{board.title}</STHNB>
+              </STHeadTR>
+              <STHeadTR>
+                <STH>글쓴이</STH>
+                <STHNB>{name}</STHNB>
+                <STH>작성일자</STH>
+                <STHNB>{cdate}</STHNB>
+              </STHeadTR>
+            </STHead>
+            <STBody>
+              <STR>
+                <STDetail colSpan={4}></STDetail>
+              </STR>
+              <STR>
+                <STDetail colSpan={1}></STDetail>
+                <STDetail colSpan={3}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/image/` + imgUrl}
+                    alt=" "
+                    style={{ width: '300px' }}
+                  />
+                  <br />
+                  <br />
+                  {board.content}
+                </STDetail>
+              </STR>
+              <STR>
+                <STDetailButton colSpan={3}></STDetailButton>
+                <STDetailButton colSpan={1}>
+                  <SButtonBoard onClick={updateBoard}>수정</SButtonBoard>
+                  <SButtonBoard onClick={detlteButton}>삭제</SButtonBoard>
+                  <SButtonBoard onClick={() => history.push(`/board`)}>
+                    목록
+                  </SButtonBoard>
+                </STDetailButton>
+              </STR>
+            </STBody>
+          </STable>
+          <br />
+          <STable>
+            <STBody>
+              <STR>
+                <STDComment colSpan={1}></STDComment>
+                <STDetail colSpan={2}>
+                  <form onSubmit={onSubmit}>
+                    <SInputComment
+                      variant="outlined"
+                      fullWidth
+                      id="comment"
+                      placeholder="댓글을 입력하세요"
+                      name="comment"
+                      value={comment}
+                      type="text"
+                      maxLength="250"
+                      onChange={submitComment}
+                    />
+                    <SButtonDetail type="submit">저장</SButtonDetail>
+                  </form>
+                </STDetail>
+                <STDComment colSpan={1}></STDComment>
+              </STR>
+              {commentList.map((comment) => (
+                <CommentList key={comment.id} comment={comment} />
+              ))}
+            </STBody>
+          </STable>{' '}
+        </>
+      )}
     </>
   );
 };

@@ -2,10 +2,13 @@ import { Container, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SButton } from './styles';
 
 const BoardUpdateForm = () => {
+  let state = useSelector((state) => state.ui.menuOpen);
+
   const inputTitleRef = useRef();
   const inputContentRef = useRef();
   const [img, setImage] = useState(null);
@@ -125,87 +128,92 @@ const BoardUpdateForm = () => {
 
   return (
     <>
-      <Container component="main" maxWidth="xs" style={{ marginTop: '5%' }}>
-        <Grid item xs={12}>
-          <Typography
-            component="h1"
-            variant="h5"
-            style={{ marginBottom: '4%', fontWeight: '600' }}
-          >
-            글 수정하기
-          </Typography>
-        </Grid>
-        <form onSubmit={onSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography component="h3" variant="h7">
-                수정하기
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                color="secondary"
-                id="title"
-                placeholder="제목을 입력하세요"
-                name="title"
-                inputRef={inputTitleRef}
-                value={board.title}
-                type="text"
-                maxLength="25"
-                onChange={onChangeValue}
-                style={{ background: 'white', width: '420px' }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography component="h3" variant="h7">
-                내용
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                color="secondary"
-                id="content"
-                value={board.content}
-                placeholder="내용을 입력하세요."
-                name="content"
-                type="text"
-                inputRef={inputContentRef}
-                onChange={onChangeValue}
-                style={{
-                  background: 'white',
-                }}
-              />
-            </Grid>
-          </Grid>
+      {!state && (
+        <Container component="main" maxWidth="xs" style={{ marginTop: '5%' }}>
           <Grid item xs={12}>
-            <input
-              type="file"
-              accept="image/jpeg, image/jpg"
-              name="file"
-              onChange={onChange}
-            ></input>
+            <Typography
+              component="h1"
+              variant="h5"
+              style={{ marginBottom: '4%', fontWeight: '600' }}
+            >
+              글 수정하기
+            </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <SButton type="submit">저장</SButton>
-          </Grid>
-          <Link
-            to="/board"
-            style={{
-              fontSize: '15px',
-              textDecoration: 'none',
-              textAlign: 'right',
-            }}
-          >
-            <Grid item>뒤로 가기</Grid>
-          </Link>
-        </form>
-      </Container>
+          <form onSubmit={onSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography component="h3" variant="h7">
+                  수정하기
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  color="secondary"
+                  id="title"
+                  placeholder="제목을 입력하세요"
+                  name="title"
+                  inputRef={inputTitleRef}
+                  value={board.title}
+                  type="text"
+                  maxLength="25"
+                  onChange={onChangeValue}
+                  style={{ background: 'white' }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="h3" variant="h7">
+                  내용
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  color="secondary"
+                  id="content"
+                  value={board.content}
+                  placeholder="내용을 입력하세요."
+                  name="content"
+                  type="text"
+                  multiline
+                  rows={10}
+                  inputRef={inputContentRef}
+                  onChange={onChangeValue}
+                  style={{
+                    background: 'white',
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <br />
+              <input
+                type="file"
+                accept="image/jpeg, image/jpg"
+                name="file"
+                onChange={onChange}
+              ></input>
+            </Grid>
+            <Grid item xs={12}>
+              <SButton type="submit">저장</SButton>
+            </Grid>
+            <Link
+              to="/board"
+              style={{
+                fontSize: '15px',
+                textDecoration: 'none',
+                textAlign: 'right',
+              }}
+            >
+              <Grid item>뒤로 가기</Grid>
+            </Link>
+          </form>
+        </Container>
+      )}
     </>
   );
 };

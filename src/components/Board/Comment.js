@@ -1,11 +1,12 @@
 import { TextField } from '@mui/material';
 import { useRef, useState } from 'react';
 import { React } from 'react';
-import { STDetail, STR } from './styles';
+import { SButtonComment, STComment, STDComment, STDetail, STR } from './styles';
 
 const CommentList = (props) => {
   const { id, comment } = props.comment;
   const user = props.comment.userId.email;
+  const name = props.comment.userId.name;
   const boardId = window.location.pathname.split('/')[2];
 
   const [isEdit, setIsEdit] = useState(false);
@@ -34,13 +35,13 @@ const CommentList = (props) => {
               method: 'DELETE',
               headers: headers,
             },
-          );
-
-          if (response.status === 200) {
-            alert('댓글을 삭제하였습니다.');
-            window.location.href = '/board/' + boardId;
-            return;
-          }
+          ).then(function (response) {
+            if (response.status === 200) {
+              alert('댓글을 삭제하였습니다.');
+              window.location.href = '/board/' + boardId;
+              return;
+            }
+          });
         }
       } else {
         alert('회원이 아닙니다.');
@@ -51,10 +52,15 @@ const CommentList = (props) => {
   const updateComment = () => {
     setIsEdit(true);
   };
+  console.log(comment);
 
-  const saveComment = async (e) => {
-    e.preventDefault();
+  const saveComment = () => {
     setIsEdit(false);
+
+    if (comment === inputRef.current.value) {
+      return 0;
+    }
+
     let headers = new Headers({
       'Content-Type': 'application/json',
     });
@@ -70,15 +76,13 @@ const CommentList = (props) => {
       body: JSON.stringify({
         comment: inputRef.current.value,
       }),
+    }).then(function (response) {
+      if (response.status === 200) {
+        alert('댓글을 수정하였습니다.');
+        window.location.href = '/board/' + boardId;
+        return;
+      }
     });
-
-    console.log(response);
-
-    if (response.status === 200) {
-      alert('댓글을 수정하였습니다.');
-      window.location.href = '/board/' + boardId;
-      return;
-    }
   };
 
   return (
@@ -86,26 +90,42 @@ const CommentList = (props) => {
       {id !== 0 && (
         <>
           <STR>
-            <STDetail colSpan={4}>
+            <STDComment colSpan={4}></STDComment>
+          </STR>
+          <STR>
+            <STDComment colSpan={1}></STDComment>
+            <STComment colSpan={2}>
               {!isEdit && (
                 <ol key={id}>
+                  <h5>{name}</h5>
+                  <br />
                   {comment}
-                  <button onClick={updateComment}>수정</button>
-                  <button onClick={deleteComment} id={id}>
+                  <SButtonComment onClick={deleteComment} id={id}>
                     삭제
-                  </button>
+                  </SButtonComment>
+                  <SButtonComment onClick={updateComment}>수정</SButtonComment>
                 </ol>
               )}
               {isEdit && (
-                <TextField
-                  type="text"
-                  size="small"
-                  inputRef={inputRef}
-                  defaultValue={comment}
-                ></TextField>
+                <>
+                  <TextField
+                    type="text"
+                    size="small"
+                    inputRef={inputRef}
+                    defaultValue={comment}
+                    style={{ width: '800px', padding: '5px' }}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        saveComment();
+                      }
+                    }}
+                  ></TextField>
+                  <SButtonComment onClick={saveComment}>저장</SButtonComment>
+                </>
               )}
-              {isEdit && <button onClick={saveComment}>저장</button>}
-            </STDetail>
+            </STComment>
+            <STDComment colSpan={1}></STDComment>
           </STR>
           <STR>
             <STDetail colSpan={4}></STDetail>

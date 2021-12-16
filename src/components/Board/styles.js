@@ -23,7 +23,41 @@ export const SButton = styled.button`
   border-radius: ${v.borderRadius};
   outline: none;
   border: none;
-  margin: 20px 60px 20px 0;
+  cursor: pointer;
+  :hover {
+    color: white;
+    background: #bf1650;
+  }
+`;
+
+export const SButtonBoard = styled.button`
+  text-decoration: none;
+  color: primary;
+  background: ${({ theme }) => theme.primary};
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
+  border-radius: ${v.borderRadius};
+  outline: none;
+  border: none;
+  margin: 5px;
+
+  cursor: pointer;
+  :hover {
+    color: white;
+    background: #bf1650;
+  }
+`;
+
+export const SButtonComment = styled.button`
+  text-decoration: none;
+  color: primary;
+  background: ${({ theme }) => theme.primary};
+  margin: 10px;
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
+  border-radius: ${v.borderRadius};
+  outline: none;
+  border: none;
+  float: right;
+
   cursor: pointer;
   :hover {
     color: white;
@@ -111,7 +145,6 @@ export const STable = styled.table`
 `;
 
 export const STHead = styled.thead`
-  position: sticky;
   z-index: 100;
 `;
 
@@ -166,8 +199,24 @@ export const STD = styled.td`
   color: black;
 `;
 
+export const STDComment = styled.td`
+  padding: ${v.smSpacing};
+  font-size: 14px;
+  color: black;
+`;
+
 export const STDetail = styled.td`
   padding: ${v.smSpacing};
+  font-size: 14px;
+  word-break: break-all;
+  width: 500px;
+  text-align: left;
+  color: black;
+`;
+
+export const STComment = styled.td`
+  padding: ${v.smSpacing};
+  border: 1px solid ${({ theme }) => theme.bg2};
   font-size: 14px;
   word-break: break-all;
   width: 500px;
