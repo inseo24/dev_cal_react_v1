@@ -13,7 +13,6 @@ const CommentList = (props) => {
   const inputRef = useRef();
 
   const validUser = user === localStorage.getItem('user');
-  console.log(validUser);
 
   const deleteComment = (e) => {
     if (id !== null) {

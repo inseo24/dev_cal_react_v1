@@ -32,4 +32,9 @@ export const signUpAsync = createAsyncThunk('/auth/signup', async (payload) => {
 
     return { signup };
   }
+
+  if (response.status === 500) {
+    let msg = await response.json();
+    alert(msg.message);
+  }
 });

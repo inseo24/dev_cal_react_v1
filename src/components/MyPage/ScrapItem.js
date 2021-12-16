@@ -59,7 +59,6 @@ const ScrapItem = (props) => {
       return { scrap };
     }
   };
-  console.log(event.related_link);
 
   return (
     <>

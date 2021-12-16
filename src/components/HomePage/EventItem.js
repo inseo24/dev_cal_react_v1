@@ -3,7 +3,6 @@ import { Modal } from '../MyPage/Modal';
 import { SALink, SModalText, SModalTitle, STD, STDTitle, STR } from './styles';
 
 const EventItem = (props) => {
-  console.log('props : ' + props.data);
   const { event } = props;
   const options = {
     weekday: 'long',
