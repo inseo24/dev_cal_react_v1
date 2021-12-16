@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { SButton, SInput } from './styles';
+import { SButton } from './styles';
 
 const BoardSaveForm = () => {
   let state = useSelector((state) => state.ui.menuOpen);

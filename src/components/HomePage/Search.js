@@ -30,9 +30,11 @@ export default function Search() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
+    let event = data.event.replace(/(\s*)/g, '');
+
     await dispatch(
       eventSearchAsync({
-        event: data.event,
+        event: event,
       }),
     ).then((response) => {
       setEventList(response.payload.event.data);
