@@ -12,6 +12,9 @@ const CommentList = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const inputRef = useRef();
 
+  const validUser = user === localStorage.getItem('user');
+  console.log(validUser);
+
   const deleteComment = (e) => {
     if (id !== null) {
       if (localStorage.getItem('user') === user) {
@@ -50,39 +53,57 @@ const CommentList = (props) => {
   };
 
   const updateComment = () => {
-    setIsEdit(true);
+    if (validUser) {
+      setIsEdit(true);
+    } else {
+      alert('회원이 아닙니다.');
+    }
   };
-  console.log(comment);
 
   const saveComment = () => {
     setIsEdit(false);
 
-    if (comment === inputRef.current.value) {
+    let commentValue = inputRef.current.value;
+
+    if (comment === commentValue) {
       return 0;
     }
 
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-    });
+    if (id !== null) {
+      if (localStorage.getItem('user') === user) {
+        const answer = window.confirm('댓글을 수정하시겠습니까?');
 
-    const accessToken = localStorage.getItem('ACCESS_TOKEN');
+        if (answer) {
+          let headers = new Headers({
+            'Content-Type': 'application/json',
+          });
 
-    if (accessToken && accessToken != null) {
-      headers.append('Authorization', 'Bearer ' + accessToken);
-    }
-    const response = fetch(`${process.env.REACT_APP_API_BASE}/comment/` + id, {
-      method: 'PUT',
-      headers: headers,
-      body: JSON.stringify({
-        comment: inputRef.current.value,
-      }),
-    }).then(function (response) {
-      if (response.status === 200) {
-        alert('댓글을 수정하였습니다.');
-        window.location.href = '/board/' + boardId;
-        return;
+          const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+          if (accessToken && accessToken != null) {
+            headers.append('Authorization', 'Bearer ' + accessToken);
+          }
+          const response = fetch(
+            `${process.env.REACT_APP_API_BASE}/comment/` + id,
+            {
+              method: 'PUT',
+              headers: headers,
+              body: JSON.stringify({
+                comment: commentValue,
+              }),
+            },
+          ).then(function (response) {
+            if (response.status === 200) {
+              alert('댓글을 수정하였습니다.');
+              window.location.href = '/board/' + boardId;
+              return;
+            }
+          });
+        }
+      } else {
+        alert('회원이 아닙니다.');
       }
-    });
+    }
   };
 
   return (
